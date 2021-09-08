@@ -1,18 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import Header from './components/Header/index';
+import Layout from './components/Layout/index';
+import Footer from './components/Footer/index';
+import bg from '../src/assets/bg3.jpeg'
 
-function App() {
+
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          space cowboy learning react.
-        </p>
-        
-      </header>
-    </div>
-  );
+      <>
+      <Header title='This is title' descr='This is Description!' />
+      <Layout urlBg = {bg} />
+      <Layout colorBg = 'red'  />
+      <Layout urlBg = {bg} />
+      <Footer 
+      title = 'THANKS FOR VISITING'
+      descr = '© 2021 #ReactMarathon.' />
+      </>
+
+    )
+  
 }
 
 export default App;
