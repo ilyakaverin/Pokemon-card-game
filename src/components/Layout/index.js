@@ -11,7 +11,7 @@ const Layout = ({title, descr, urlBg, colorBg  }) => {
                     <h3>{title}</h3>
                     <span className={style.separator}></span>
                 </div>
-                <div className={style.desc, style.full}>
+                <div className={[style.desc, style.full].join(' ')} > 
                     <p>{descr}</p>
                 </div>
             </article>
