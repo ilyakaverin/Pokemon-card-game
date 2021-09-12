@@ -1,14 +1,13 @@
 import { useState } from 'react';
 import style from './style.module.css';
-import CardBackSide from './assets/card-back-side.jpeg';
 
 
 const PokemonCard = ({name, type, img, values, id }) => {
-    const [isActive, setActive] = useState(false);
-    const handle = () => console.log(setActive(true));
+    const [isActive, setState] = useState(false);
+    const turnCard = () => isActive ? setState(false) : setState(true)
 
     return (
-<div className={style.root} onClick={handle}>
+<div className={style.root} onClick={turnCard}>
       <div className={`${style.pokemonCard} ${ isActive ? style.active : ''}`}>
         <div className={style.cardFront}>
             <div className={`${style.wrap} ${style.front}`}>
@@ -33,7 +32,7 @@ const PokemonCard = ({name, type, img, values, id }) => {
 
         <div className={style.cardBack}>
             <div className={`${style.wrap} ${style.back}`}>
-                <img src={CardBackSide} alt="Сard Backed" />
+                
             </div>
         </div>
 
