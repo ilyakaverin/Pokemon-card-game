@@ -63,6 +63,12 @@
     transform: translate(-50%, -50%);
     animation: text-fade-in 1000ms 800ms forwards;
 }
+.startButton {
+    background-color: transparent;
+    padding: 10px;
+    color: #fff;
+    margin-top:15px;
+  }
 
 @keyframes text-fade-in {
     from {
