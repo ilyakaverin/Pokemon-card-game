@@ -3,17 +3,17 @@ import Menu from '../Menu/index';
 import NavBar from '../NavBar/index';
 
 
-const MenuHeader = () => {
-    const [isActive, setActive] = useState('initial');
+const MenuHeader = ({bgActive}) => {
+    const [isActive, setActive] = useState(null);
 
     const handle = () => {
-        isActive === 'initial' ? setActive('openMenu') : setActive('closedMenu')
+        setActive(prevState => !prevState)
     }
 
     return (
         <>
         <Menu isOpen={isActive} />
-        <NavBar setState={handle} isOpen={isActive} />
+        <NavBar setState={handle} isOpen={isActive} bgActive={bgActive} />
         </>
     )
 }

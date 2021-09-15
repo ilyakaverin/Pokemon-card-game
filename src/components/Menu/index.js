@@ -5,7 +5,7 @@ const Menu = ({isOpen}) => {
 
     return (
 
-<div className={cn(style.menuContainer, {[style.active]  : isOpen === 'openMenu' }, {[style.deactive] : isOpen === 'closedMenu' })}>
+<div className={cn(style.menuContainer, {[style.active]  : isOpen === true }, {[style.deactive] : isOpen === false })}>
   <div className={style.overlay} />
   <div className={style.menuItems}>
     <ul>
