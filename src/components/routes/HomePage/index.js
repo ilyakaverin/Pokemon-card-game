@@ -27,9 +27,6 @@ Each player has five cards in a hand and the aim is to capture the opponent's ca
 
       
       </Layout>
-      <Footer 
-      title = 'THANKS FOR VISITING'
-      descr = '© 2021 #ReactMarathon.' />
       </>
 
     )
