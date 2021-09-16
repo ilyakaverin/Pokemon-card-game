@@ -31,7 +31,7 @@ return (
       
     </Switch>
 </div>
-        <Footer /> 
+        <Footer title={'THANK FOR VISITING'} descr={'2021'} /> 
 
     </>
   </Switch>
