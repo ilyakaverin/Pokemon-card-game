@@ -1,6 +1,5 @@
 import Header from '../../Header/index';
 import Layout from '../../Layout/index';
-import Footer from '../../Footer/index';
 import bg from '../../../assets/bg3.jpeg';
 // import style from './style.module.css'
 

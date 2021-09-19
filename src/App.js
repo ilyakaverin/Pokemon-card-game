@@ -1,13 +1,13 @@
-import {useRouteMatch, Route, Switch, Redirect} from 'react-router-dom';
+import { useRouteMatch, Route, Switch, Redirect } from 'react-router-dom';
+import MenuHeader from './components/MenuHeader';
 import HomePage from './components/routes/HomePage/index';
 import GamePage from './components/routes/GamePage/index';
 import NotFound from './components/routes/NotFound/index';
 import AboutPage from './components/routes/AboutPage/index';
+import ContactPage from './components/routes/ContactPage';
 import Footer from './components/Footer/index'
 import  style from './App.module.css';
-import MenuHeader from './components/MenuHeader';
 import cn from 'classnames';
-import ContactPage from './components/routes/ContactPage';
 
 const App = () => {
   const match = useRouteMatch('/');
