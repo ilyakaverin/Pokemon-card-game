@@ -2,10 +2,10 @@ import style from './style.module.css';
 import cn from 'classnames';
 
 
-const PokemonCard = ({name, type, img, values, id, active, StateOfPokemon }) => {
+const PokemonCard = ({name, type, img, values, id, active, StateOfPokemon, objectId}) => {
 
     const handle = () => { 
-        StateOfPokemon && StateOfPokemon(id);
+        StateOfPokemon && StateOfPokemon(objectId);
     }
 
     return (
