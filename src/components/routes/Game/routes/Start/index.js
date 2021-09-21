@@ -1,11 +1,19 @@
 import style from './style.module.css';
-import PokemonCard from '../../PokemonCards/index';
-import database from '../../../service/firebase'
-import {useState, useEffect } from 'react';
+import PokemonCard from '../../../../PokemonCards/index';
+import database from '../../../../../service/firebase'
+import {useState, useEffect, useContext} from 'react';
+import {useHistory } from 'react-router-dom';
+import { PokemonContext } from '../../../../../context/pokemoncontext';
 
-const GamePage = () => {
+const StartPage = () => {
   const [pokemonsArray, setPokemonState] = useState({});
+  const pokemonContext = useContext(PokemonContext);
+  const history = useHistory();
+  const start = () => {
+    history.push('/board')
+  }
 
+console.log('####: PokemonContext', pokemonContext)
   useEffect(() => {
     database.ref('pokemons').once('value', (snapshot) => {
       setPokemonState(snapshot.val())
@@ -36,12 +44,13 @@ const GamePage = () => {
     database.ref('pokemons/' + newKey).set({...properties});
     
   }
+  
 
   
   
     return (
       <div className={style.flex}>
-      <button onClick={addCard}> ADD NEW CARD</button>
+      <button onClick={start}> START GAME</button>
       <div className={style.flex}>
       
       {
@@ -54,7 +63,7 @@ const GamePage = () => {
            img={img}
            values={values}
            id={id}
-           active={active}
+           active={!active}
            StateOfPokemon={setStateOfPokemon} 
            /> )
          
@@ -63,4 +72,4 @@ const GamePage = () => {
       </div>
     )
 }
-export default GamePage;
+export default StartPage;

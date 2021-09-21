@@ -12,6 +12,13 @@ const firebaseConfig = {
   };
   firebase.initializeApp(firebaseConfig);
 
+  class Firebase {
+    constructor() {
+      this.fire = firebase;
+      this.database = this.fire.database()
+    }
+  }
+
   export const fire = firebase;
 
 export const database = fire.database();

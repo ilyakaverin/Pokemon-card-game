@@ -33,6 +33,9 @@
 .pokemonCard.active {
     animation: flipFront 1000ms 300ms forwards;
 }
+.pokemonCard.selected {
+    margin-top: -40px;
+}
 
 @keyframes flipFront {
     from {

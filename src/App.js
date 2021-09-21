@@ -1,10 +1,10 @@
 import { useRouteMatch, Route, Switch, Redirect } from 'react-router-dom';
 import MenuHeader from './components/MenuHeader';
 import HomePage from './components/routes/HomePage/index';
-import GamePage from './components/routes/GamePage/index';
 import NotFound from './components/routes/NotFound/index';
 import AboutPage from './components/routes/AboutPage/index';
 import ContactPage from './components/routes/ContactPage';
+import StartPage from './components/routes/Game/routes/Start/index';
 import Footer from './components/Footer/index'
 import  style from './App.module.css';
 import cn from 'classnames';
@@ -22,7 +22,7 @@ return (
     <Switch>
       <Route path='/' exact component={HomePage} />
       <Route path='/home' component={HomePage} />
-      <Route path='/game' component={GamePage} />
+      <Route path='/game' component={StartPage} />
       <Route path='/about'  component={AboutPage} />
       <Route path='/contact' component={ContactPage} />
       <Route render={() => (

@@ -2,7 +2,7 @@ import style from './style.module.css';
 import cn from 'classnames';
 
 
-const PokemonCard = ({name, type, img, values, id, active, StateOfPokemon, objectId}) => {
+const PokemonCard = ({name, type, img, values, id, active, StateOfPokemon, objectId, minimize, className}) => {
 
     const handle = () => { 
         StateOfPokemon && StateOfPokemon(objectId);
