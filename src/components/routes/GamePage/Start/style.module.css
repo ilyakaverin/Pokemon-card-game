@@ -1,0 +1,15 @@
+.flex {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap:40px;
+  }
+.wrapButton {
+    text-align: center;
+    padding:2rem;
+}
+
+  .card {
+    width: 100%;
+    height: 380px;
+    cursor: pointer;
+}
