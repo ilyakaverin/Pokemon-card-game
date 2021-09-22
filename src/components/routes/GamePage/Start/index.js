@@ -8,7 +8,7 @@ import { PokemonContext } from '../../../../context/pokemoncontext';
 const StartPage = () => {
   const [pokemonsArray, setPokemonState] = useState({});
   const firebase = useContext(FireBaseContext);
-  const history = useHistory()
+  const history = useHistory();
   const pokemonsContext = useContext(PokemonContext);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ const StartPage = () => {
       setPokemonState(pokemonsArray)
     })
     return () => firebase.offPokemonSoket;
-  },[])
+  },[firebase]);
  
   const setStateOfPokemon = (key) => {
       const pokemon = {...pokemonsArray[key]}
@@ -33,12 +33,15 @@ const StartPage = () => {
   const handleStart = () => {
 history.push('/game/board')
   }
+  console.log(Object.keys(pokemonsContext.pokemon).length)
     return (
       <>
-     <div 
-      onClick={handleStart}
-      disabled={Object.keys(pokemonsContext.pokemon).length < 5} 
-      className={s.wrapButton}><button> START GAME</button></div>
+     <div className={s.wrapButton}>
+     <button 
+     onClick={handleStart}
+     disabled={Object.keys(pokemonsContext.pokemon).length < 5} 
+    > START GAME</button>
+    </div>
       
       <div className={s.flex}>
       

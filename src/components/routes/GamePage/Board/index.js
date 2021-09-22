@@ -12,9 +12,9 @@ const BoardPage = () => {
                         {
                             Object.values(pokemonContext.pokemon).map(({key, name, type, img, values, id, selected}) =>  ( 
             <PokemonCard
+            key={key}
            className={s.card}
            objectId={key}
-           key={key}
            name={name}
            type={type}
            img={img}

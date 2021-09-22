@@ -19,7 +19,7 @@ return (
   <Switch>
   <Route path='/404' component={NotFound} />
     <>
-    <MenuHeader bgActive={isPadding} />
+    <MenuHeader bgActive={!isPadding} />
     <div className ={cn(style.wrap, {
       [style.isHomePage] : isPadding
     })}>

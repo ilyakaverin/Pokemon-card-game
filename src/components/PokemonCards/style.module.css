@@ -231,7 +231,3 @@
     bottom: 0;
 }
 
-.pokemonCard:active .wrap.fron::after,
-.pokemonCard:focus .wrap.front::after {
-    border-color: blue;
-}
