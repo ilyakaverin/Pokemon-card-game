@@ -11,8 +11,6 @@ const StartPage = () => {
   const history = useHistory()
   const pokemonsContext = useContext(PokemonContext);
 
-  console.log("####: pokemonCOntext", pokemonsContext)
-
   useEffect(() => {
     firebase.getPokemonSoket((pokemonsArray) => {
       setPokemonState(pokemonsArray)
