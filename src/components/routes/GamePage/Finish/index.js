@@ -1,7 +1,6 @@
 import {useHistory} from 'react-router-dom';
 import {useContext, useState} from 'react';
 import {PokemonContext}  from '../../../../context/pokemoncontext';
-import PlayerBoard from '../Board/component/playerBoard';
 import PokemonCard from '../../../PokemonCards';
 import style from './style.module.css';
 import { FireBaseContext } from '../../../../context/firebasecontext';
@@ -21,11 +20,10 @@ const FinishPage = () => {
         window.location.reload();
         
     }
-console.log('### PLAYER2CONTEXT',player2);
+    if(Object.keys(pokemon).length === 0) {
+        history.replace('/')
+      }
 
-
-console.log("WinCard", winCard)
-   
     return (
         <>
         <div className ={style.flex}>
