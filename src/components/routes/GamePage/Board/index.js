@@ -1,42 +1,146 @@
 import s from './style.module.css';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { PokemonContext } from '../../../../context/pokemoncontext';
 import PokemonCard from '../../../PokemonCards';
+import { useHistory } from 'react-router-dom';
+import PlayerBoard from './component/playerBoard';
+
+const counterWin = (board, playerOne, playerTwo) => {
+    let playerOneCount = playerOne.length;
+    let playerTwoCount = playerTwo.length;
+    board.forEach((item) => {
+        if(item.card.possession === 'red') {
+            playerTwoCount++;
+        }
+        if(item.card.possession === 'blue') {
+            playerOneCount++;
+        }
+
+    });
+    return [playerOneCount, playerTwoCount]
+
+}
+
 
 const BoardPage = () => {
-    const pokemonContext = useContext(PokemonContext);
+    const { pokemon, setPlayer2, setWinner} = useContext(PokemonContext);
+    const history = useHistory();
+    const [board, setBoard] = useState([]);
     
+    const [playerOne, setPlayerOne] = useState(() => {
+
+        return Object.values(pokemon).map((item) => ({
+            ...item,
+            possession: 'blue'
+        }))
+    });
+    const [playerTwo, setPlayerTwo] = useState([]);
+    const [chooseCard, setChooseCard] = useState(null);
+    const [steps, setSteps] = useState(0);
+
+    if(Object.keys(pokemon).length === 0) {
+      history.replace('/game')
+    }
+    useEffect( () => {
+        const fetchData = async () => {
+            const boardResponse = await fetch('https://reactmarathon-api.netlify.app/api/board');
+            const boardRequest = await boardResponse.json();
+            setBoard(boardRequest.data); 
+    
+            const PlayerTwoResponse = await fetch('https://reactmarathon-api.netlify.app/api/create-player');
+            const PlayerTwoRequest = await PlayerTwoResponse.json();
+    
+             setPlayerTwo(() => {
+                return PlayerTwoRequest.data.map((item) => ({
+                    ...item,
+                    possession: 'red',
+                }))
+             });
+             setPlayer2(PlayerTwoRequest.data.map((item) => ({
+                ...item
+            })))
+             
+             
+        }
+       fetchData();
+        // Effect callbacks are synchronous to prevent race conditions. Put the async function inside: 
+    }, [])
+
+    
+    
+    const handleBoardPlate = async (position) => {
+        if (chooseCard) {
+            const params = {
+                position,
+                card: chooseCard,
+                board,
+            };
+            const res = await fetch('https://reactmarathon-api.netlify.app/api/players-turn', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(params),
+    
+            });
+            const request = await res.json();
+            if(chooseCard.player === 1) {
+                setPlayerOne(prevState => prevState.filter((item) => item.id !== chooseCard.id))
+            }
+            if(chooseCard.player === 2) {
+                setPlayerTwo(prevState => prevState.filter((item) => item.id !== chooseCard.id))
+            }
+            setBoard(request.data);
+            setSteps(prevState => {
+                const count = prevState + 1;
+                return count
+            })
+            
+        }
+    }
+    useEffect(() => {
+        if(steps === 9) {
+            const [countOne, countTwo] = counterWin(board, playerOne, playerTwo);
+
+            
+
+            if(countOne > countTwo) {
+                setWinner((prevState) => prevState + 'player1')
+                alert('Win')
+            } else if (countOne < countTwo) {
+                setWinner((prevState) => prevState + 'player2')
+                alert('Lose')
+            } else {
+                alert('TIE')
+            }
+            history.replace('/game/finish')
+
+        }
+
+    }, [steps])
     return (
         <div className={s.root}>
 						<div className={s.playerOne}>
-                        {
-                            Object.values(pokemonContext.pokemon).map(({key, name, type, img, values, id, selected}) =>  ( 
-            <PokemonCard
-            key={key}
-           className={s.card}
-           objectId={key}
-           name={name}
-           type={type}
-           img={img}
-           values={values}
-           id={id}
-           minimize                      
-           active
-           isSelected={selected} 
-           /> ))
-                        }
-        
+                        <PlayerBoard player={1} cards={playerOne} onClickCard={(card) => setChooseCard(card)}/>
 						</div>
             <div className={s.board}>
-                <div className={s.boardPlate}>1</div>
-                <div className={s.boardPlate}>2</div>
-                <div className={s.boardPlate}>3</div>
-                <div className={s.boardPlate}>4</div>
-                <div className={s.boardPlate}>5</div>
-                <div className={s.boardPlate}>6</div>
-                <div className={s.boardPlate}>7</div>
-                <div className={s.boardPlate}>8</div>
-                <div className={s.boardPlate}>9</div>
+               {
+                   board.map((item)=> (
+                       <div 
+                       key={item.position}
+                       className={s.boardPlate}
+                       onClick={() => !item.card && handleBoardPlate(item.position)} >
+
+                       {
+                           item.card && <PokemonCard {...item.card} active minimize />
+                       }
+
+                       </div>
+                   ))
+               }
+            </div>
+            <div className={s.playerTwo}>
+          <PlayerBoard player={2} cards={playerTwo } onClickCard={(card) => setChooseCard(card)} />
             </div>
         </div>
     );

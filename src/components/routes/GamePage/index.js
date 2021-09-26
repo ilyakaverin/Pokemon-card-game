@@ -8,8 +8,10 @@ import { PokemonContext } from '../../../context/pokemoncontext';
 const GamePage = () => {
   const match = useRouteMatch();
   const [selected, setSelected] = useState({});
+  const [player2, setPlayer2] = useState([]);
+  const [winner, setWinner] = useState('');
   
-
+  
   const handle = (key, pokemon) => {
     setSelected(prevState => {
 
@@ -25,11 +27,14 @@ const GamePage = () => {
       }
     })
   }
-
   return (
     <PokemonContext.Provider value={{
       pokemon: selected,
-      onSelectedPokemons: handle
+      player2: player2,
+      onSelectedPokemons: handle,
+      setPlayer2: setPlayer2,
+      Whowin: winner,
+      setWinner: setWinner
     }}>
 
    

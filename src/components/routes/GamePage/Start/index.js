@@ -33,14 +33,14 @@ const StartPage = () => {
   const handleStart = () => {
 history.push('/game/board')
   }
-  console.log(Object.keys(pokemonsContext.pokemon).length)
+  
     return (
       <>
      <div className={s.wrapButton}>
      <button 
      onClick={handleStart}
-     disabled={Object.keys(pokemonsContext.pokemon).length < 5} 
-    > START GAME</button>
+     disabled={Object.keys(pokemonsContext.pokemon).length < 5} >
+      START GAME</button>
     </div>
       
       <div className={s.flex}>
