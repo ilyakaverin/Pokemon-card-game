@@ -4,11 +4,12 @@ import {PokemonContext}  from '../../../../context/pokemoncontext';
 import PokemonCard from '../../../PokemonCards';
 import style from './style.module.css';
 import { FireBaseContext } from '../../../../context/firebasecontext';
+import cn from 'classnames';
 
 
 const FinishPage = () => {
     const history = useHistory();
-    const {pokemon, player2, Whowin} = useContext(PokemonContext);
+    const {pokemon, player2, Whowin, cleanContext} = useContext(PokemonContext);
     const [winCard, setWinCard] = useState({});
     const firebase = useContext(FireBaseContext);
 
@@ -17,13 +18,21 @@ const FinishPage = () => {
             firebase.addPokemon(winCard);
         }
         history.push('/game');
-        window.location.reload();
+        cleanContext()
         
     }
+    const pick = (id) => {
+        player2.map((item) => {
+            if(item.id === id) {
+                setWinCard(item)
+            }
+        })
+     
+  }
     if(Object.keys(pokemon).length === 0) {
         history.replace('/')
       }
-
+      
     return (
         <>
         <div className ={style.flex}>
@@ -41,29 +50,19 @@ const FinishPage = () => {
                id={card.id}                     
                active
                
-               
-               
-               
                /> 
                ))
                             }
 </div>
         
-        <button className={style.wrapButton} onClick={handle}>END GAME</button>
+        <button className={style.wrapButton} onClick={handle} disabled={Object.keys(winCard).length === 0 && Whowin === 'player1'}>END GAME</button>
        
         <div className ={style.flex}>
 
         {
             player2.map((card) =>  (  
-                <div onClick={ () => {
-                    player2.map((item) => {
-                        if(item.id === card.id) {
-                            setWinCard(item)
-                        }
-                    })
-                }}>
                 <PokemonCard
-                className={style.card}
+                className={cn(style.card, {[style.pick] : winCard.id === card.id  })}
                 key={card.key}
                objectId={card.key}
                name={card.name}
@@ -72,8 +71,12 @@ const FinishPage = () => {
                values={card.values}
                id={card.id}                     
                active
+               StateOfPokemon={() => pick(card.id)}
+               
+               
+               
+               
                /> 
-               </div>
                ))
                             }
 

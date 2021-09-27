@@ -13,3 +13,11 @@
     height: 380px !important;
     cursor: pointer;
 }
+.card.selected {
+    margin-top: -20px;
+    margin-bottom: 20px;
+}
+.pick {
+   margin-top:-20px;
+
+} 

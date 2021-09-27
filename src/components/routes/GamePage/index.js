@@ -27,6 +27,9 @@ const GamePage = () => {
       }
     })
   }
+  const clean = () => setSelected(prevState => Object());
+  console.log("#####: player2context", player2);
+
   return (
     <PokemonContext.Provider value={{
       pokemon: selected,
@@ -34,7 +37,8 @@ const GamePage = () => {
       onSelectedPokemons: handle,
       setPlayer2: setPlayer2,
       Whowin: winner,
-      setWinner: setWinner
+      setWinner: setWinner,
+      cleanContext: clean
     }}>
 
    
