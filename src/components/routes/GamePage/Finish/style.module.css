@@ -1,0 +1,23 @@
+.flex {
+    display: grid;
+    grid-template-columns:repeat(5, 1fr);
+    grid-gap:40px;
+  }
+.wrapButton {
+    text-align: center;
+    padding:2rem;
+}
+
+.card {
+    width: 100%;
+    height: 380px !important;
+    cursor: pointer;
+}
+.card.selected {
+    margin-top: -20px;
+    margin-bottom: 20px;
+}
+.pick {
+   margin-top:-20px;
+
+} 
