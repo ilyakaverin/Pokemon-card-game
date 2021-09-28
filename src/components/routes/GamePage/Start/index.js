@@ -2,21 +2,28 @@ import s from './style.module.css';
 import PokemonCard from '../../../PokemonCards';
 import {useState, useEffect, useContext } from 'react';
 import {useHistory} from 'react-router-dom';
-import { FireBaseContext } from '../../../../context/firebasecontext';
 import { PokemonContext } from '../../../../context/pokemoncontext';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectPokemonsData, getPokemonsAsync, selectPokemonsLoading } from '../../../../store/pokemons';
 
 const StartPage = () => {
   const [pokemonsArray, setPokemonState] = useState({});
-  const firebase = useContext(FireBaseContext);
+  const isLoading = useSelector(selectPokemonsLoading);
   const history = useHistory();
   const pokemonsContext = useContext(PokemonContext);
+  
+  const pokemonsRedux = useSelector(selectPokemonsData);
+  const dispatch = useDispatch();
+
 
   useEffect(() => {
-    firebase.getPokemonSoket((pokemonsArray) => {
-      setPokemonState(pokemonsArray)
-    })
-    return () => firebase.offPokemonSoket;
-  },[firebase]);
+    dispatch(getPokemonsAsync())
+  },[]);
+
+  useEffect(() => {
+    setPokemonState(pokemonsRedux)
+
+  }, [pokemonsRedux])
  
   const setStateOfPokemon = (key) => {
       const pokemon = {...pokemonsArray[key]}
@@ -33,6 +40,7 @@ const StartPage = () => {
   const handleStart = () => {
 history.push('/game/board')
   }
+  
     return (
       <>
      <div className={s.wrapButton}>

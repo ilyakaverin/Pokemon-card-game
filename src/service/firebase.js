@@ -22,6 +22,11 @@ const firebaseConfig = {
         cb(snapshot.val())
       })
     }
+    offPokemonSoket = (cb) => {
+      this.database.ref('pokemons').off('value', (snapshot) => {
+        cb(snapshot.val())
+      })
+    }
     getPokemonOnce = async () => {
       return await this.database.ref('pokemons').once('value').then(snapshot => snapshot.val());
     }
@@ -34,5 +39,7 @@ const firebaseConfig = {
     }
   }
 
+  const FirebaseClass = new Firebase();
+
   
-export default Firebase;
+export default FirebaseClass;

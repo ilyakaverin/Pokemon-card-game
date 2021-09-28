@@ -28,7 +28,7 @@ const GamePage = () => {
     })
   }
   const clean = () => setSelected(prevState => Object());
-  console.log("#####: player2context", player2);
+
 
   return (
     <PokemonContext.Provider value={{
