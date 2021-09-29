@@ -12,21 +12,7 @@ const GamePage = () => {
   const [winner, setWinner] = useState('');
   
   
-  const handle = (key, pokemon) => {
-    setSelected(prevState => {
 
-      if(prevState[key]) {
-        const copyState = {...prevState};
-        delete copyState[key];
-        return copyState
-      }
-
-      return {
-        ...prevState,
-        [key]: pokemon,
-      }
-    })
-  }
   const clean = () => setSelected(prevState => Object());
 
 
@@ -34,7 +20,6 @@ const GamePage = () => {
     <PokemonContext.Provider value={{
       pokemon: selected,
       player2: player2,
-      onSelectedPokemons: handle,
       setPlayer2: setPlayer2,
       Whowin: winner,
       setWinner: setWinner,
