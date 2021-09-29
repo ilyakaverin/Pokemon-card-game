@@ -4,8 +4,8 @@ import PokemonCard from '../../../PokemonCards';
 import { useHistory } from 'react-router-dom';
 import PlayerBoard from './component/playerBoard';
 import { useDispatch, useSelector } from 'react-redux';
-import { SelectedPokemon, setWinner} from '../../../../store/pokemons';
-import { pokemons2Data, setPlayerToRedux} from '../../../../store/pokemons2';
+import { SelectedPokemon, setWinner } from '../../../../store/pokemons';
+import { setPlayerToRedux } from '../../../../store/pokemons2';
 
 const counterWin = (board, playerOne, playerTwo) => {
     let playerOneCount = playerOne.length;
@@ -28,7 +28,6 @@ const BoardPage = () => {
     const history = useHistory();
     const [board, setBoard] = useState([]);
     const selectedRedux = useSelector(SelectedPokemon);
-    const poke2Redux = useSelector(pokemons2Data);
     const dispatch = useDispatch();
 
     const [playerOne, setPlayerOne] = useState(() => {
@@ -123,7 +122,6 @@ const BoardPage = () => {
                 
             } else {
                 alert('TIE')
-                
             }
             history.replace('/game/finish')
 

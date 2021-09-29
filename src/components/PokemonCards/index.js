@@ -7,6 +7,7 @@ const PokemonCard = ({name, type, img, values, id, active, StateOfPokemon, minim
     const handle = () => { 
         StateOfPokemon && StateOfPokemon(objectId);
     }
+    
     return (
 <div className={cn(className, s.pokemonCard, {
     [s.active]: active,

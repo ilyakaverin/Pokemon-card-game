@@ -4,7 +4,7 @@ import PokemonCard from '../../../PokemonCards';
 import style from './style.module.css';
 import { FireBaseContext } from '../../../../context/firebasecontext';
 import cn from 'classnames';
-import { SelectedPokemon, setWin, setClean} from '../../../../store/pokemons';
+import { SelectedPokemon, setWin, setClean } from '../../../../store/pokemons';
 import { pokemons2Data } from '../../../../store/pokemons2';
 import { useSelector, useDispatch } from 'react-redux';
 
