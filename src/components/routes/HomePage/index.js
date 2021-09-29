@@ -1,20 +1,24 @@
 import Header from '../../Header/index';
 import Layout from '../../Layout/index';
 import bg from '../../../assets/bg3.jpeg';
+import {useHistory} from 'react-router-dom';
 // import style from './style.module.css'
 
 
 
-const HomePage = ({onChangePage}) => {
-    const handleClickButton = (page) => {
-        onChangePage && onChangePage(page)
+const HomePage = () => {
+  const history = useHistory();
+
+  const handleClickButton = () => {
+      history.push('/game')
+        
     }
 
   return (
       <>
       <Header 
       title='Pokemons' 
-      descr='Another card game'
+      descr='Another pokemon game'
       onClickButton={handleClickButton}
        />
       <Layout title='Rules'  urlBg = {bg}>

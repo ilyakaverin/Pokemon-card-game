@@ -8,14 +8,11 @@ import ContactPage from './components/routes/ContactPage';
 import Footer from './components/Footer/index'
 import  style from './App.module.css';
 import cn from 'classnames';
-import { FireBaseContext } from './context/firebasecontext';
-import Firebase from './service/firebase';
 
 const App = () => {
   const location = useLocation();
   const isPadding = location.pathname === '/' || location.pathname === '/game/board'
 return (
-  <FireBaseContext.Provider value={new Firebase()}>
   <Switch>
   <Route path='/404' component={NotFound} />
     <>
@@ -39,7 +36,6 @@ return (
 
     </>
   </Switch>
-  </FireBaseContext.Provider>
     
 )
 }

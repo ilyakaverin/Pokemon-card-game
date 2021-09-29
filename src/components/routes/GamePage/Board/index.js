@@ -1,9 +1,11 @@
 import s from './style.module.css';
-import { useContext, useEffect, useState } from 'react';
-import { PokemonContext } from '../../../../context/pokemoncontext';
+import { useEffect, useState } from 'react';
 import PokemonCard from '../../../PokemonCards';
 import { useHistory } from 'react-router-dom';
 import PlayerBoard from './component/playerBoard';
+import { useDispatch, useSelector } from 'react-redux';
+import { SelectedPokemon, setWinner } from '../../../../store/pokemons';
+import { setPlayerToRedux } from '../../../../store/pokemons2';
 
 const counterWin = (board, playerOne, playerTwo) => {
     let playerOneCount = playerOne.length;
@@ -23,13 +25,14 @@ const counterWin = (board, playerOne, playerTwo) => {
 
 
 const BoardPage = () => {
-    const { pokemon, setPlayer2, setWinner} = useContext(PokemonContext);
     const history = useHistory();
     const [board, setBoard] = useState([]);
-    
+    const selectedRedux = useSelector(SelectedPokemon);
+    const dispatch = useDispatch();
+
     const [playerOne, setPlayerOne] = useState(() => {
 
-        return Object.values(pokemon).map((item) => ({
+        return Object.values(selectedRedux).map((item) => ({
             ...item,
             possession: 'blue'
         }))
@@ -38,7 +41,7 @@ const BoardPage = () => {
     const [chooseCard, setChooseCard] = useState(null);
     const [steps, setSteps] = useState(0);
 
-    if(Object.keys(pokemon).length === 0) {
+    if(Object.keys(selectedRedux).length === 0) {
       history.replace('/game')
     }
     useEffect( () => {
@@ -49,6 +52,8 @@ const BoardPage = () => {
     
             const PlayerTwoResponse = await fetch('https://reactmarathon-api.netlify.app/api/create-player');
             const PlayerTwoRequest = await PlayerTwoResponse.json();
+
+            
     
              setPlayerTwo(() => {
                 return PlayerTwoRequest.data.map((item) => ({
@@ -56,15 +61,18 @@ const BoardPage = () => {
                     possession: 'red',
                 }))
              });
-             setPlayer2(PlayerTwoRequest.data.map((item) => ({
-                ...item
-            })))
+             dispatch(setPlayerToRedux(PlayerTwoRequest.data.map((item) => ({
+                ...item,
+            }))))
              
              
         }
-       fetchData();
+       fetchData()
         // Effect callbacks are synchronous to prevent race conditions. Put the async function inside: 
     }, [])
+
+
+    
 
     
     
@@ -105,11 +113,13 @@ const BoardPage = () => {
             
 
             if(countOne > countTwo) {
-                setWinner((prevState) => prevState + 'player1')
+                dispatch(setWinner('player1'))
                 alert('Win')
+                
             } else if (countOne < countTwo) {
-                setWinner((prevState) => prevState + 'player2')
+                dispatch(setWinner('player2'))
                 alert('Lose')
+                
             } else {
                 alert('TIE')
             }

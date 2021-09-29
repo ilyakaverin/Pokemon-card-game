@@ -1,10 +1,11 @@
 import style from './style.module.css';
-import {useHistory} from 'react-router-dom'
+
 const Header= ({title, descr, onClickButton }) => {
-    const history = useHistory();
+
     const handle = () => {
-        history.push('/game');
+        onClickButton && onClickButton()
     }
+    
     return (
         <header className={style.root}>
         <div className={style.forest}></div>

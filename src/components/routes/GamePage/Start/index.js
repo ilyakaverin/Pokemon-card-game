@@ -1,27 +1,30 @@
 import s from './style.module.css';
 import PokemonCard from '../../../PokemonCards';
-import {useState, useEffect, useContext } from 'react';
+import {useState, useEffect } from 'react';
 import {useHistory} from 'react-router-dom';
-import { FireBaseContext } from '../../../../context/firebasecontext';
-import { PokemonContext } from '../../../../context/pokemoncontext';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectPokemonsData, getPokemonsAsync, setStateOfPokemon, SelectedPokemon } from '../../../../store/pokemons';
 
 const StartPage = () => {
   const [pokemonsArray, setPokemonState] = useState({});
-  const firebase = useContext(FireBaseContext);
   const history = useHistory();
-  const pokemonsContext = useContext(PokemonContext);
+  const selectedRedux = useSelector(SelectedPokemon);
+  const pokemonsRedux = useSelector(selectPokemonsData);
+  const dispatch = useDispatch();
+
 
   useEffect(() => {
-    firebase.getPokemonSoket((pokemonsArray) => {
-      setPokemonState(pokemonsArray)
-    })
-    return () => firebase.offPokemonSoket;
-  },[firebase]);
+    dispatch(getPokemonsAsync())
+  },[]);
+
+  useEffect(() => {
+    setPokemonState(pokemonsRedux)
+  }, [pokemonsRedux])
  
-  const setStateOfPokemon = (key) => {
-      const pokemon = {...pokemonsArray[key]}
-      pokemonsContext.onSelectedPokemons(key, pokemon);
-    setPokemonState(prevState => ({
+  const handleClick = (key) => {
+      const pokemon = {...pokemonsArray[key]};
+      dispatch(setStateOfPokemon({key, pokemon}));
+      setPokemonState(prevState => ({
         ...prevState,
         [key]: {
             ...prevState[key],
@@ -30,15 +33,17 @@ const StartPage = () => {
     }))
     
   }
+
   const handleStart = () => {
 history.push('/game/board')
   }
+  
     return (
       <>
      <div className={s.wrapButton}>
      <button 
      onClick={handleStart}
-     disabled={Object.keys(pokemonsContext.pokemon).length < 5} > START GAME</button>
+     disabled={Object.keys(selectedRedux).length < 5} > START GAME</button>
     </div>
       
       <div className={s.flex}>
@@ -56,8 +61,8 @@ history.push('/game/board')
            id={id}
            active={true}
            StateOfPokemon={ () => {
-            if (Object.keys(pokemonsContext.pokemon).length < 5 || selected) {
-                setStateOfPokemon(key)
+            if (Object.keys(selectedRedux).length < 5 || selected) {
+                handleClick(key)
                }
            }
                
