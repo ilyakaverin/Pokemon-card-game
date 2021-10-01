@@ -1,7 +1,5 @@
 import style from './style.module.css';
 import cn from 'classnames';
-import FirebaseClass from '../../service/firebase';
-import { setWinner } from '../../store/pokemons';
 import {ReactComponent as LoginSVG } from '../../assets/login.svg';
 
 const NavBar = ({isOpen, bgActive = false, setState, onClickLogin }) => {

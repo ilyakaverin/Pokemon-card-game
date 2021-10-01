@@ -7,6 +7,7 @@ const LoginForm = ({onSubmit}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [signIn, setSignIn] = useState(null);
+    const [event, setEvent] = useState(false);
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -37,22 +38,12 @@ const LoginForm = ({onSubmit}) => {
             onChange={(event) => setPassword(event.target.value)}
         />
         <div className={style.buttons}>
-        <button onClick={() => setSignIn(false)} >
-            Sign up
+        <button onClick={event ? () => setSignIn(false) : () => setSignIn(true)} >
+            {event ? 'Sign in' : 'Sign up'}
         </button>
-        <p>or</p>
-        <button onClick={() => setSignIn(true)} >
-            Sign in
-        </button>
+        <p onClick={() => setEvent(prevState => !prevState)}> {event ? 'Login' : 'Register'} </p>
         </div>
         </form>
-        
-       
-        
-        
-
-        
-        
 
     )
     

@@ -4,12 +4,13 @@ import NavBar from '../NavBar/index';
 import Modal from '../Modal';
 import LoginForm from '../LoginForm';
 import { NotificationManager } from 'react-notifications';
-
+import { useHistory } from 'react-router-dom';
 
 
 const MenuHeader = ({bgActive}) => {
     const [isActive, setActive] = useState(null);
     const [isOpenModal, setModalState] = useState(false)
+    const history = useHistory()
 
     const handle = () => {
         setActive(prevState => !prevState)
@@ -31,8 +32,9 @@ const MenuHeader = ({bgActive}) => {
             if(signResponse.hasOwnProperty('error')) {
                 NotificationManager.error(signResponse.error.message, 'wrong');
             } else {
-                localStorage.setItem('idToken', signResponse.idToken)
+                localStorage.setItem('idToken', signResponse.idToken);
                 NotificationManager.success('DONE', 'priwel k uspehu');
+                history.push('/game')
             }
         } else {
             const response = await 
@@ -43,6 +45,7 @@ const MenuHeader = ({bgActive}) => {
             } else {
                 localStorage.setItem('idToken', response.idToken)
                 NotificationManager.success('DONE', 'priwel k uspehu');
+                history.push('/game')
             }
         }
      
