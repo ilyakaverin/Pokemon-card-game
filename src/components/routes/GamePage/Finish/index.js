@@ -1,12 +1,12 @@
 import {useHistory} from 'react-router-dom';
-import {useContext, useState} from 'react';
+import { useState} from 'react';
 import PokemonCard from '../../../PokemonCards';
 import style from './style.module.css';
-import { FireBaseContext } from '../../../../context/firebasecontext';
 import cn from 'classnames';
 import { SelectedPokemon, setWin, setClean } from '../../../../store/pokemons';
 import { pokemons2Data } from '../../../../store/pokemons2';
 import { useSelector, useDispatch } from 'react-redux';
+import FirebaseClass from '../../../../service/firebase';
 
 
 
@@ -14,7 +14,6 @@ const FinishPage = () => {
     const history = useHistory();
     
     const [winCard, setWinCard] = useState({});
-    const firebase = useContext(FireBaseContext);
     const winner = useSelector(setWin);
     const dispatch = useDispatch()
     const player2 = useSelector(pokemons2Data);
@@ -22,7 +21,7 @@ const FinishPage = () => {
 
     const handle= () => {
         if(winner === 'player1') {
-            firebase.addPokemon(winCard);
+            FirebaseClass.addPokemon(winCard);
         }
         history.push('/game');
         dispatch(setClean({}))

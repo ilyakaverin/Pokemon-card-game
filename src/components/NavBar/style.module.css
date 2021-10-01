@@ -85,3 +85,20 @@
     background: #181d23aa;
   }
 }
+
+.loginAndMenu {
+  display: flex;
+  align-items: center;
+}
+.loginWrap {
+  width:35px;
+  height: 35px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.loginAndMenu svg {
+  transition: fill ease-in-out .25s;
+}
+.loginAndMenu svg:hover {
+  transform: rotate(45deg)
+}
