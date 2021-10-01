@@ -2,7 +2,6 @@ import {useRouteMatch, Switch, Route} from 'react-router-dom';
 import StartPage from './Start';
 import BoardPage from './Board';
 import FinishPage from './Finish';
-import PrivateRoute from '../../PrivateRoute';
 
 const GamePage = () => {
   const match = useRouteMatch();
@@ -10,8 +9,8 @@ const GamePage = () => {
   return (
       <Switch>
           <Route path={`${match.path}/`} exact component={StartPage} />
-          <PrivateRoute path={`${match.path}/board`} component={BoardPage} />
-          <PrivateRoute path={`${match.path}/finish`} component={FinishPage} />
+          <Route path={`${match.path}/board`} component={BoardPage} />
+          <Route path={`${match.path}/finish`} component={FinishPage} />
       </Switch>
     
   );
