@@ -22,6 +22,7 @@ const LoginForm = ({onSubmit}) => {
     }
 
     return (
+        <>
         <form onSubmit={handleSubmit}>
         <Input
         value={email} 
@@ -39,11 +40,12 @@ const LoginForm = ({onSubmit}) => {
         />
         <div className={style.buttons}>
         <button onClick={event ? () => setSignIn(false) : () => setSignIn(true)} >
-            {event ? 'Sign in' : 'Sign up'}
+            { event ? 'Sign in' : 'Sign up'}
         </button>
-        <p onClick={() => setEvent(prevState => !prevState)}> {event ? 'Login' : 'Register'} </p>
         </div>
         </form>
+        <button onClick={() => setEvent(prevState => !prevState)}> {event ? 'Register?' : 'Login?'} </button>
+        </>
 
     )
     
