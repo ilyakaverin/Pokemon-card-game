@@ -3,10 +3,9 @@ import { useState} from 'react';
 import PokemonCard from '../../../PokemonCards';
 import style from './style.module.css';
 import cn from 'classnames';
-import { SelectedPokemon, setWin, setClean } from '../../../../store/pokemons';
+import { SelectedPokemon, setWin, setClean, getPokemonsAsync } from '../../../../store/pokemons';
 import { pokemons2Data } from '../../../../store/pokemons2';
 import { useSelector, useDispatch } from 'react-redux';
-import FirebaseClass from '../../../../service/firebase';
 import { selectUser } from '../../../../store/users';
 
 
@@ -23,15 +22,11 @@ const FinishPage = () => {
 
     const addWinPokemon =  async () => {
 
-        const response = user;
-        const idToken = localStorage.getItem('idToken')
-
         const requestOptions = {
             method: 'POST',
-            body: JSON.stringify(winCard)
+            body: JSON.stringify(winCard),
         }
-         await fetch(`https://pokemon-game-ca189-default-rtdb.asia-southeast1.firebasedatabase.app/${response.localId}/pokemons.json?auth=${idToken}`,requestOptions);
-
+         await fetch(`https://pokemon-game-ca189-default-rtdb.asia-southeast1.firebasedatabase.app/${user.localId}/pokemons.json`,requestOptions);
     }
 
     const handle= () => {

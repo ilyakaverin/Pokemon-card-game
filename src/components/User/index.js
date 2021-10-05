@@ -1,19 +1,21 @@
-import { useSelector, useDispatch } from "react-redux";
-import { selectUser, removeUser } from "../../store/users";
+import {  useDispatch, useSelector } from "react-redux";
+import {  removeUser, selectUser } from "../../store/users";
 import style from './style.module.css';
 import { useHistory } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 
 const UserPage = () => {
 
-    const user = useSelector(selectUser);
     const history = useHistory();
     const dispatch = useDispatch();
+
+    const user = useSelector(selectUser)
+   
 
     const logOut = () => {
         localStorage.removeItem('idToken');
         dispatch(removeUser());
-        
         history.push('/')
 
     }
