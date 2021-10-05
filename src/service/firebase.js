@@ -34,8 +34,7 @@ const firebaseConfig = {
       this.database.ref(`pokemons/${key}`).set(pokemon);
     }
     addPokemon = (data, cb) => {
-    const newKey = this.database.ref().child('pokemons').push().key;
-    this.database.ref('pokemons/' + newKey).set(data).then(() => cb);
+    this.database.ref('pokemons/').set(data).then(() => cb);
     }
   }
 

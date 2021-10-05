@@ -6,16 +6,31 @@ import NotFound from './components/routes/NotFound/index';
 import AboutPage from './components/routes/AboutPage/index';
 import ContactPage from './components/routes/ContactPage';
 import Footer from './components/Footer/index';
+import UserPage from './components/User';
 import PrivateRoute from './components/PrivateRoute';
 import {NotificationContainer} from 'react-notifications';
 import  style from './App.module.css';
 import cn from 'classnames';
-
 import 'react-notifications/lib/notifications.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { getUserAsync, selectUserLoading } from './store/users';
 
 const App = () => {
+  const isUserLoading = useSelector(selectUserLoading);
   const location = useLocation();
-  const isPadding = location.pathname === '/' || location.pathname === '/game/board'
+  const isPadding = location.pathname === '/' || location.pathname === '/game/board';
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUserAsync())
+  },[])
+
+  if(isUserLoading) {
+    return 'LOADING'
+  }
+
+
 return (
   <Switch>
   <Route path='/404' component={NotFound} />
@@ -31,6 +46,7 @@ return (
       <PrivateRoute path='/game' component={GamePage} />
       <PrivateRoute path='/about'  component={AboutPage} />
       <PrivateRoute path='/contact' component={ContactPage} />
+      <PrivateRoute path='/user' component={UserPage} />
       <Route render={() => (
         <Redirect to={'/404'} />
       )} />

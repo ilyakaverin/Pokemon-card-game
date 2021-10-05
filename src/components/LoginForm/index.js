@@ -1,13 +1,18 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import Input from './component/Input';
 import style from './style.module.css';
 
-const LoginForm = ({onSubmit}) => {
+const LoginForm = ({onSubmit, isResetField = false}) => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [signIn, setSignIn] = useState(null);
-    const [event, setEvent] = useState(false);
+    const [signIn, setSignIn] = useState(true);
+
+    useEffect(() => {
+        setEmail('');
+        setPassword('');
+
+    },[isResetField])
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -22,6 +27,7 @@ const LoginForm = ({onSubmit}) => {
     }
 
     return (
+        <>
         <form onSubmit={handleSubmit}>
         <Input
         value={email} 
@@ -38,12 +44,18 @@ const LoginForm = ({onSubmit}) => {
             onChange={(event) => setPassword(event.target.value)}
         />
         <div className={style.buttons}>
-        <button onClick={event ? () => setSignIn(false) : () => setSignIn(true)} >
-            {event ? 'Sign in' : 'Sign up'}
+        <button>
+            { signIn ? 'Sign in' : 'Sign up'}
         </button>
-        <p onClick={() => setEvent(prevState => !prevState)}> {event ? 'Login' : 'Register'} </p>
+        <div 
+        onClick={() => setSignIn(prevState => !prevState)}>
+         {signIn ? 'Register?' : 'Login?'} 
+         </div>
         </div>
+        
         </form>
+        
+        </>
 
     )
     
