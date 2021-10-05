@@ -7,6 +7,7 @@ import { SelectedPokemon, setWin, setClean } from '../../../../store/pokemons';
 import { pokemons2Data } from '../../../../store/pokemons2';
 import { useSelector, useDispatch } from 'react-redux';
 import FirebaseClass from '../../../../service/firebase';
+import { selectUser } from '../../../../store/users';
 
 
 
@@ -18,10 +19,24 @@ const FinishPage = () => {
     const dispatch = useDispatch()
     const player2 = useSelector(pokemons2Data);
     const player1 = useSelector(SelectedPokemon);
+    const user = useSelector(selectUser)
+
+    const addWinPokemon =  async () => {
+
+        const response = user;
+        const idToken = localStorage.getItem('idToken')
+
+        const requestOptions = {
+            method: 'POST',
+            body: JSON.stringify(winCard)
+        }
+         await fetch(`https://pokemon-game-ca189-default-rtdb.asia-southeast1.firebasedatabase.app/${response.localId}/pokemons.json?auth=${idToken}`,requestOptions);
+
+    }
 
     const handle= () => {
         if(winner === 'player1') {
-            FirebaseClass.addPokemon(winCard);
+            addWinPokemon();
         }
         history.push('/game');
         dispatch(setClean({}))

@@ -23,7 +23,7 @@ button {
   -webkit-user-select: none;
   touch-action: manipulation;
   vertical-align: baseline;
-  width: auto;
+  width: 150px;
   }
  
 
@@ -50,6 +50,9 @@ button:active {
     align-items: baseline;
     justify-content: space-between;
     
+}
+.buttons div {
+    font-size: 16px;
 }
 .buttons p {
     font-size: 16px;

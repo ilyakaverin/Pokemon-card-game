@@ -5,12 +5,15 @@ import Modal from '../Modal';
 import LoginForm from '../LoginForm';
 import { NotificationManager } from 'react-notifications';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { getUserUpdateAsync } from '../../store/users';
 
 
 const MenuHeader = ({bgActive}) => {
     const [isActive, setActive] = useState(null);
     const [isOpenModal, setModalState] = useState(false)
-    const history = useHistory()
+    const history = useHistory();
+    const dispatch = useDispatch()
 
     const handle = () => {
         setActive(prevState => !prevState)
@@ -18,7 +21,7 @@ const MenuHeader = ({bgActive}) => {
     const handleClickLogin = () => {
         setModalState(prevState => !prevState)
     }
-    const handleSubmitLoginForm = async ({email, password, signIn}) => {
+    const authEvent = async ({email, password, signIn}) => {
         const requestOptions = {
             method: 'POST',
             body: JSON.stringify({
@@ -27,27 +30,42 @@ const MenuHeader = ({bgActive}) => {
                 returnSecurityToken: true
             })
         }
-        if(signIn) {
-            const signResponse = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCvP_1qO7amCQplRNx1M2kgZPk37Wo99LA',requestOptions).then(res => res.json());
-            if(signResponse.hasOwnProperty('error')) {
-                NotificationManager.error(signResponse.error.message, 'wrong');
-            } else {
-                localStorage.setItem('idToken', signResponse.idToken);
-                NotificationManager.success('DONE', 'priwel k uspehu');
-                history.push('/game')
-            }
-        } else {
-            const response = await 
-            fetch('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCvP_1qO7amCQplRNx1M2kgZPk37Wo99LA', requestOptions).then(res => res.json())
-            
-            if(response.hasOwnProperty('error')) {
-                NotificationManager.error(response.error.message, 'EST TAKOI');
-            } else {
-                localStorage.setItem('idToken', response.idToken)
-                NotificationManager.success('DONE', 'priwel k uspehu');
-                history.push('/game')
-            }
+        switch(signIn) {
+            case true:
+                return await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCvP_1qO7amCQplRNx1M2kgZPk37Wo99LA',requestOptions).then(res => res.json());
+            case false:
+                return await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCvP_1qO7amCQplRNx1M2kgZPk37Wo99LA', requestOptions).then(res => res.json())
+            default: 
+                return 'error'
+
         }
+
+    }
+    const handleSubmitLoginForm = async (props) => {
+
+        const response = await authEvent(props);
+        console.log('response', response);
+
+            if(response.hasOwnProperty('error')) {
+                NotificationManager.error(response.error.message, 'wrong');
+            } else {
+                if(props.signIn === false) {
+                    const pokemonStart = await fetch('https://reactmarathon-api.herokuapp.com/api/pokemons/starter').then(res => res.json());
+                    for(const item of pokemonStart.data) {
+
+                        await fetch(`https://pokemon-game-ca189-default-rtdb.asia-southeast1.firebasedatabase.app/${response.localId}/pokemons.json?auth=${response.idToken}`, {
+                            method: 'POST',
+                            body: JSON.stringify(item)
+                        });
+                    }
+                }
+                
+                localStorage.setItem('idToken', response.idToken);
+                NotificationManager.success('DONE', 'priwel k uspehu');
+                dispatch(getUserUpdateAsync())
+                handleClickLogin()
+            }
+        
      
     }
 
@@ -66,6 +84,7 @@ const MenuHeader = ({bgActive}) => {
                     >
                     <LoginForm
                     onSubmit={handleSubmitLoginForm}
+                    isResetField={!isOpenModal}
                      />
 
                     </Modal>
