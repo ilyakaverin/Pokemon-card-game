@@ -2,7 +2,6 @@ import {  useDispatch, useSelector } from "react-redux";
 import {  removeUser, selectUser } from "../../store/users";
 import style from './style.module.css';
 import { useHistory } from "react-router-dom";
-import { useState, useEffect } from "react";
 
 
 const UserPage = () => {

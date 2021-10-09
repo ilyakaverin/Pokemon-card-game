@@ -3,7 +3,7 @@ import { useState} from 'react';
 import PokemonCard from '../../../PokemonCards';
 import style from './style.module.css';
 import cn from 'classnames';
-import { SelectedPokemon, setWin, setClean, getPokemonsAsync } from '../../../../store/pokemons';
+import { SelectedPokemon, setWin, setClean } from '../../../../store/pokemons';
 import { pokemons2Data } from '../../../../store/pokemons2';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectUser } from '../../../../store/users';
@@ -26,7 +26,7 @@ const FinishPage = () => {
             method: 'POST',
             body: JSON.stringify(winCard),
         }
-         await fetch(`https://pokemon-game-ca189-default-rtdb.asia-southeast1.firebasedatabase.app/${user.localId}/pokemons.json`,requestOptions);
+         return await fetch(`https://pokemon-game-ca189-default-rtdb.asia-southeast1.firebasedatabase.app/${user.localId}/pokemons.json`,requestOptions);
     }
 
     const handle= () => {
@@ -38,6 +38,7 @@ const FinishPage = () => {
         
     }
     const pick = (id) => {
+        // eslint-disable-next-line array-callback-return
         Object.values(player2).map((item) => {
             if(item.id === id) {
                 setWinCard(item)

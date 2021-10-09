@@ -4,7 +4,6 @@ import NavBar from '../NavBar/index';
 import Modal from '../Modal';
 import LoginForm from '../LoginForm';
 import { NotificationManager } from 'react-notifications';
-import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getUserUpdateAsync } from '../../store/users';
 
@@ -12,7 +11,6 @@ import { getUserUpdateAsync } from '../../store/users';
 const MenuHeader = ({bgActive}) => {
     const [isActive, setActive] = useState(null);
     const [isOpenModal, setModalState] = useState(false)
-    const history = useHistory();
     const dispatch = useDispatch()
 
     const handle = () => {
@@ -44,8 +42,6 @@ const MenuHeader = ({bgActive}) => {
     const handleSubmitLoginForm = async (props) => {
 
         const response = await authEvent(props);
-        console.log('response', response);
-
             if(response.hasOwnProperty('error')) {
                 NotificationManager.error(response.error.message, 'wrong');
             } else {

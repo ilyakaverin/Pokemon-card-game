@@ -24,6 +24,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getUserAsync())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
   if(isUserLoading) {

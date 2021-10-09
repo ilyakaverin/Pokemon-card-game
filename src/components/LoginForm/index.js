@@ -49,7 +49,7 @@ const LoginForm = ({onSubmit, isResetField = false}) => {
         </button>
         <div 
         onClick={() => setSignIn(prevState => !prevState)}>
-         {signIn ? 'Register?' : 'Login?'} 
+         { signIn ? 'Register?' : 'Login?'} 
          </div>
         </div>
         
