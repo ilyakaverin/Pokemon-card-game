@@ -28,7 +28,7 @@ const App = () => {
   },[])
 
   if(isUserLoading) {
-    return 'LOADING'
+    return "loading"
   }
 
 

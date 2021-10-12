@@ -53,11 +53,15 @@ export const slice = createSlice({
         setClean: (state, action) => ({
             ...state,
             player1Board: action.payload
-        })
+        }),
+        setCleanData: (state, action) => ({
+            ...state,
+            data: action.payload
+        }),
     }
 })
 
-export const {fetchPokemons, fetchPokemonsResolve, fetchPokemonsReject, setStateOfPokemon, setPlayer2, setWinner, setClean } = slice.actions;
+export const {fetchPokemons, fetchPokemonsResolve, fetchPokemonsReject, setStateOfPokemon, setPlayer2, setWinner, setClean, setCleanData } = slice.actions;
 
 export const selectPokemonsLoading = state => state.pokemons.isLoading;
 

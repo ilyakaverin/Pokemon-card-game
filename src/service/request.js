@@ -3,10 +3,10 @@ class Request {
         this.host = 'https://reactmarathon-api.herokuapp.com/api'
     }
     getStarterKit = async () => {
-        return await fetch(`${this.host}/pokemons/starter`).then(res => res.json())
+        return await fetch(`${this.host}/pokemons/starter`).then(res => res.json());
     }
     getBoard = async () => {
-        return await fetch(`${this.host}/pokemons/board`).then(res => res.json())
+        return await fetch(`${this.host}/pokemons/board`).then(res => res.json());
     }
     gameStart = async (data) => {
         return await fetch(`${this.host}/pokemons/game/start`,{

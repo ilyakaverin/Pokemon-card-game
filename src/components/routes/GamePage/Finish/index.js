@@ -3,8 +3,8 @@ import { useState} from 'react';
 import PokemonCard from '../../../PokemonCards';
 import style from './style.module.css';
 import cn from 'classnames';
-import { SelectedPokemon, setWin, setClean } from '../../../../store/pokemons';
-import { pokemons2Data } from '../../../../store/pokemons2';
+import { SelectedPokemon, setWin, setClean, getPokemonsAsync } from '../../../../store/pokemons';
+import { pokemons2Data, setPlayerToRedux } from '../../../../store/pokemons2';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectUser } from '../../../../store/users';
 
@@ -30,11 +30,13 @@ const FinishPage = () => {
     }
 
     const handle= () => {
-        if(winner === 'player1') {
+        if(winner === 'win') {
             addWinPokemon();
         }
         history.push('/game');
+        dispatch(getPokemonsAsync());
         dispatch(setClean({}))
+        dispatch(setPlayerToRedux({}))
         
     }
     const pick = (id) => {
@@ -68,6 +70,7 @@ const FinishPage = () => {
                active
                
                /> 
+               
                ))
                             }
 </div>

@@ -38,6 +38,7 @@
 .pokemonCard.selected {
     margin-top: -20px;
     margin-bottom: 20px;
+    border-color: blueviolet;
 }
 
 .cardFront,
@@ -86,6 +87,7 @@
     transform: translate(-50%, -50%);
     border-radius: 24px;
 }
+
 
 .wrap.back {
     z-index: -1;

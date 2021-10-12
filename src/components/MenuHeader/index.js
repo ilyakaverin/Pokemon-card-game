@@ -61,7 +61,7 @@ const MenuHeader = ({bgActive}) => {
                 dispatch(getUserUpdateAsync())
                 handleClickLogin()
             }
-        
+        console.log(response)
      
     }
 
