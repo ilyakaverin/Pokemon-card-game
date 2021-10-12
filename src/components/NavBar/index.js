@@ -6,6 +6,7 @@ import {ReactComponent as UserSVG } from '../../assets/pikachu.svg';
 import { useSelector } from 'react-redux';
 import { selectUserLoading, selectLocalId } from '../../store/users';
 
+
 const NavBar = ({isOpen, bgActive = false, setState, onClickLogin }) => {
 
   const isLoading = useSelector(selectUserLoading);
@@ -14,7 +15,7 @@ const NavBar = ({isOpen, bgActive = false, setState, onClickLogin }) => {
         <nav id={style.navbar} className={cn(style.root, { [style.bgActive] : bgActive})}>
   <div className={style.navWrapper}>
     <p className={style.brand}>
-      LOGO
+      Logo
     </p>
 
    <div className={style.loginAndMenu}>

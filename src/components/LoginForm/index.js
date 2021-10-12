@@ -44,12 +44,12 @@ const LoginForm = ({onSubmit, isResetField = false}) => {
             onChange={(event) => setPassword(event.target.value)}
         />
         <div className={style.buttons}>
-        <button>
+        <button className={style.login}>
             { signIn ? 'Sign in' : 'Sign up'}
         </button>
         <div 
         onClick={() => setSignIn(prevState => !prevState)}>
-         {signIn ? 'Register?' : 'Login?'} 
+         { signIn ? 'Register?' : 'Login?'} 
          </div>
         </div>
         

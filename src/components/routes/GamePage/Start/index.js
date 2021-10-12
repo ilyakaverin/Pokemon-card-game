@@ -3,22 +3,26 @@ import PokemonCard from '../../../PokemonCards';
 import {useState, useEffect } from 'react';
 import {useHistory} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectPokemonsData, getPokemonsAsync, setStateOfPokemon, SelectedPokemon } from '../../../../store/pokemons';
-
+import { selectPokemonsData, getPokemonsAsync, setStateOfPokemon, SelectedPokemon, setWinner, selectPokemonsLoading } from '../../../../store/pokemons';
 const StartPage = () => {
   const [pokemonsArray, setPokemonState] = useState({});
   const history = useHistory();
   const selectedRedux = useSelector(SelectedPokemon);
   const pokemonsRedux = useSelector(selectPokemonsData);
   const dispatch = useDispatch();
+  const isLoading = useSelector(selectPokemonsLoading)
+  
 
 
   useEffect(() => {
-    dispatch(getPokemonsAsync())
+    dispatch(getPokemonsAsync());
+    dispatch(setWinner(null));
+    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
 
   useEffect(() => {
-    setPokemonState(pokemonsRedux)
+    setPokemonState(pokemonsRedux);
   }, [pokemonsRedux])
  
   const handleClick = (key) => {
@@ -36,6 +40,9 @@ const StartPage = () => {
 
   const handleStart = () => {
 history.push('/game/board')
+  }
+  if(isLoading) {
+    return <div className={s.pokeball}><span></span></div>
   }
   
     return (

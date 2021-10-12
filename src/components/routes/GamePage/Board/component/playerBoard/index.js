@@ -3,25 +3,30 @@ import {useState} from 'react';
 import style from './style.module.css';
 import cn from 'classnames';
 
-const PlayerBoard = ({ player, cards, onClickCard }) => {
+
+const PlayerBoard = ({ player, cards, onClickCard}) => {
 
     const [isSelected, setSelected] = useState(null);
 
+
     return (
+        
         <>
         {
+            
             cards.map((card) =>  (  
-                <div className={cn(style.cardBoard, 
-                {[style.selected] : isSelected === card.id}
-                )}
-                onClick={() => { 
+                <div className={cn(style.cardBoard, {[style.selected] : isSelected === card.id})}
+                     onClick={() => { 
                     setSelected(card.id);
                     onClickCard && onClickCard({
                     player,
                     ...card,
                    
-                })
-                }}
+                            })
+                            }
+                            
+                
+                }
                 >             
                 <PokemonCard
                 key={card.key}
