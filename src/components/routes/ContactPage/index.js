@@ -1,8 +1,8 @@
- // import style from './style.module.css';
+import style from './style.module.css';
 
 const ContactPage = () => {
     return (
-        <h1> Contact me! @seeuspacecowboyy</h1>
+        <h1> see ya!</h1>
     )
 }
 export default ContactPage;

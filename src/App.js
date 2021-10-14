@@ -28,7 +28,9 @@ const App = () => {
   },[])
 
   if(isUserLoading) {
-    return "loading"
+    return (
+      <div className={style.pokeball}><span></span></div>
+    )
   }
 
 
@@ -54,7 +56,7 @@ return (
       
     </Switch>
 </div>
-        <Footer title={'THANK FOR VISITING'} descr={'2021'} /> 
+        <Footer title={'Ilya Kaverin'} descr={'2021'} /> 
 
     </>
     

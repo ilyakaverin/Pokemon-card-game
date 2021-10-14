@@ -26,7 +26,7 @@ const FinishPage = () => {
             method: 'POST',
             body: JSON.stringify(winCard),
         }
-         return await fetch(`https://pokemon-game-ca189-default-rtdb.asia-southeast1.firebasedatabase.app/${user.localId}/pokemons.json`,requestOptions);
+         await fetch(`https://pokemon-game-ca189-default-rtdb.asia-southeast1.firebasedatabase.app/${user.localId}/pokemons.json`,requestOptions);
     }
 
     const handle= () => {

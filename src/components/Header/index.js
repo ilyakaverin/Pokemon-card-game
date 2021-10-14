@@ -1,6 +1,8 @@
 import style from './style.module.css';
+import Logo from './component/Logo/index';
+import Gif from '../../assets/headerGif.gif'
 
-const Header= ({title, descr, onClickButton }) => {
+const Header= ({descr, onClickButton }) => {
 
     const handle = () => {
         onClickButton && onClickButton()
@@ -8,12 +10,9 @@ const Header= ({title, descr, onClickButton }) => {
     
     return (
         <header className={style.root}>
-        <div className={style.forest}></div>
-        <div className={style.silhouette}></div>
-        <div className={style.moont}></div>
         
         <div className={style.container}>
-             <h1>{title}</h1>
+             <Logo />
              <p>{descr}</p>
              <button className={style.startButton} onClick={handle}>
                  Start Game
