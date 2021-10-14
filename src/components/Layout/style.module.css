@@ -2,7 +2,6 @@
     font-size: 1.4rem;
     position: relative;
     background: #fafafa;
-    clip-path: polygon(0 0, 20% 5%, 100% 0, 100% 100%, 80% 95%, 0 100%);
     z-index: 5;
     background-attachment: fixed;
 }
@@ -79,7 +78,6 @@
 }
 @media only screen and (max-width: 949px) {
     .root {
-        clip-path: polygon(0 0, 20% 2%, 100% 0, 100% 100%, 80% 98%, 0 100%);
         background-position: top left;
         background-size: cover;
     }

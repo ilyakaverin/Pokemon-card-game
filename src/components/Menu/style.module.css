@@ -41,7 +41,6 @@
   height: 100vh;
   width: 100vw;
   background: #202934;
-  border: 60px solid #181d23;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -61,12 +60,9 @@
 }
 
 .menuContainer::before {
-  background: url(https://raw.githubusercontent.com/yagoestevez/fcc-portfolio/master/src/Images/Stars.svg?sanitize=true);
+  background: url(https://gamingdna.co.nz/wp-content/uploads/2018/05/Pokemon-BG.jpg);
 }
 
-.menuContainer::after {
-  background: url(https://raw.githubusercontent.com/yagoestevez/fcc-portfolio/master/src/Images/Trees.svg?sanitize=true) bottom repeat-x;
-}
 
 .menuContainer.deactive {
   animation: fade-out 600ms forwards;
@@ -165,7 +161,7 @@
 
 .menuContainer a,
 .menuContainer a:visited {
-  color: #fafafa;
+  color: #181d23;
 }
 
 .menuContainer a:hover,

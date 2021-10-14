@@ -4,11 +4,12 @@
     position: fixed;
     top: 0;
     left: 0;
-    background: rgba(252, 231, 86, .75);
+   
     visibility: hidden;
     opacity: 0;
     transition: all 0.25s ease-in-out;
     z-index: 100000;
+    
 }
 
 .root.open {
@@ -27,6 +28,7 @@
     background: #fafafa;
     opacity: 0;
     transition: all 0.5s ease-in-out;
+    border-radius: 15px;
 }
 
 .root.open .modal {
@@ -42,6 +44,8 @@
     position: relative;
     padding: 12px 52px 12px 24px;
     font-size: 30px;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
 }
 
 .btnClose {

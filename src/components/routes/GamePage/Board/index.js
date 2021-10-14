@@ -26,9 +26,6 @@ import { counterWin, returnBoard } from './utils';
     const [board, setBoard] = useState([]);
     const [serverBoard, setServerBoard] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0]);
     const [firstTurn, setFirstTurn] = useState(0);
-
-    console.log(steps);
-    console.log('board', board)
   
     if (Object.keys(selectedRedux).length === 0) {
       history.replace("/game");
