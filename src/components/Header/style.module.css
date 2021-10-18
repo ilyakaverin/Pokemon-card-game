@@ -21,7 +21,7 @@
     min-height: 100vh;
     z-index: -1;
     opacity: 0;
-    animation: stars-move-in 1000ms 300ms forwards;
+    animation: gif 1000ms 300ms forwards;
     filter: brightness(50%);
 }
 .startButton {
@@ -72,7 +72,7 @@
   transform: translateY(0);
 }
 
-@keyframes stars-move-in {
+@keyframes gif {
     from {
         background-position-y: -100px;
     }

@@ -21,9 +21,6 @@ const FinishPage = () => {
     const player2 = useSelector(pokemons2Data);
     const player1 = useSelector(SelectedPokemon);
     const user = useSelector(selectUser);
-    const idToken = localStorage.getItem('idToken');
-    
-
     const key = Object.keys(stats).join('');
     const value = stats[key];
     const [statistic, setStatistic] = useState(value);
@@ -55,7 +52,7 @@ const FinishPage = () => {
             method: 'POST',
             body: JSON.stringify(winCard),
         }
-         await fetch(`https://pokemon-game-ca189-default-rtdb.asia-southeast1.firebasedatabase.app/${user.localId}/pokemons.json?auth=${idToken}`,requestOptions);
+         await fetch(`https://pokemon-game-ca189-default-rtdb.asia-southeast1.firebasedatabase.app/${user.localId}/pokemons.json?auth=${localStorage.getItem('idToken')}`,requestOptions);
     }
 
     const handle= () => {

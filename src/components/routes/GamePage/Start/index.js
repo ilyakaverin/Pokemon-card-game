@@ -50,8 +50,10 @@ history.push('/game/board')
       <>
      <div className={s.wrapButton}>
      <button 
+     className={s.startButton}
      onClick={handleStart}
      disabled={Object.keys(selectedRedux).length < 5} > START GAME</button>
+     <p>Choose 5 pokemons and click button</p>
     </div>
       
       <div className={s.flex}>
