@@ -56,7 +56,7 @@ const FinishPage = () => {
     }
 
     const handle= () => {
-        if(winner === 'win') {
+        if(winner === 'wins') {
             addWinPokemon();
         }
         updateStats()
