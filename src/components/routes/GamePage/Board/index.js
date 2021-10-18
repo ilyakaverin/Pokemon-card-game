@@ -58,6 +58,7 @@ import { counterWin, returnBoard } from './utils';
       };
   
       fetchData();
+      // eslint-disable-next-line
     }, []);
   
     const aiMove = (game) => {
@@ -98,6 +99,7 @@ import { counterWin, returnBoard } from './utils';
         }
       }
       FirstTurnAI()
+      // eslint-disable-next-line
     }, [playerTwo]);
   
     const handleBoardPlate = async (position) => {
@@ -148,7 +150,7 @@ import { counterWin, returnBoard } from './utils';
         const [countOne, countTwo] = counterWin(board, playerOne, playerTwo);
   
         if (countOne > countTwo) {
-          dispatch(setWinner("win"));
+          dispatch(setWinner("wins"));
         } else if (countOne < countTwo) {
           dispatch(setWinner("lose"));
         } else {
@@ -163,6 +165,7 @@ import { counterWin, returnBoard } from './utils';
           <PlayerBoard
             player={1}
             cards={playerOne}
+            
             onClickCard={(card) => setChooseCard(card)}
           />
         </div>
@@ -186,7 +189,7 @@ import { counterWin, returnBoard } from './utils';
           ))}
         </div>
         <div className={cn(s.playerTwo, s.turn)}>
-          <PlayerBoard player={2} cards={playerTwo} />
+          <PlayerBoard  player={2} cards={playerTwo} />
         </div>
       </div>
     );

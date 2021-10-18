@@ -2,13 +2,11 @@ import Header from '../../Header/index';
 import Layout from '../../Layout/index';
 import bg from '../../../assets/bg3.jpeg';
 import {useHistory} from 'react-router-dom';
-// import style from './style.module.css'
-
 
 
 const HomePage = () => {
   const history = useHistory();
-
+  
   const handleClickButton = () => {
       history.push('/game')
         

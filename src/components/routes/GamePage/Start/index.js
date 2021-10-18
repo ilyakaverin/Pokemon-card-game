@@ -4,6 +4,7 @@ import {useState, useEffect } from 'react';
 import {useHistory} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectPokemonsData, getPokemonsAsync, setStateOfPokemon, SelectedPokemon, setWinner, selectPokemonsLoading } from '../../../../store/pokemons';
+import { getStatsAsync } from '../../../../store/stats';
 const StartPage = () => {
   const [pokemonsArray, setPokemonState] = useState({});
   const history = useHistory();
@@ -16,8 +17,8 @@ const StartPage = () => {
 
   useEffect(() => {
     dispatch(getPokemonsAsync());
+    dispatch(getStatsAsync())
     dispatch(setWinner(null));
-    
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
 

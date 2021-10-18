@@ -11,7 +11,7 @@ import { getUserUpdateAsync } from '../../store/users';
 const MenuHeader = ({bgActive}) => {
     const [isActive, setActive] = useState(null);
     const [isOpenModal, setModalState] = useState(false)
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     const handle = () => {
         setActive(prevState => !prevState)
@@ -25,7 +25,7 @@ const MenuHeader = ({bgActive}) => {
             body: JSON.stringify({
                 email,
                 password,
-                returnSecurityToken: true
+                returnSecureToken: true
             })
         }
         switch(signIn) {
@@ -46,6 +46,15 @@ const MenuHeader = ({bgActive}) => {
                 NotificationManager.error(response.error.message, 'wrong');
             } else {
                 if(props.signIn === false) {
+                    const data = {
+                        wins: 0,
+                        draw: 0,
+                        lose: 0
+                    }
+                    await fetch(`https://pokemon-game-ca189-default-rtdb.asia-southeast1.firebasedatabase.app/${response.localId}/stats.json?auth=${response.idToken}`, {
+                        method: 'POST',
+                        body: JSON.stringify(data)
+                    })
                     const pokemonStart = await fetch('https://reactmarathon-api.herokuapp.com/api/pokemons/starter').then(res => res.json());
                     for(const item of pokemonStart.data) {
 
@@ -55,10 +64,9 @@ const MenuHeader = ({bgActive}) => {
                         });
                     }
                 }
-                
                 localStorage.setItem('idToken', response.idToken);
                 NotificationManager.success('DONE', 'priwel k uspehu');
-                dispatch(getUserUpdateAsync())
+                dispatch(getUserUpdateAsync());
                 handleClickLogin()
             }
      

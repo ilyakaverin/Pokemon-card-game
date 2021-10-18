@@ -23,7 +23,8 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUserAsync())
+    dispatch(getUserAsync());
+    
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 

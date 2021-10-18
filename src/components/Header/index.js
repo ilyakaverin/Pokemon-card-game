@@ -1,9 +1,8 @@
 import style from './style.module.css';
 import Logo from './component/Logo/index';
-import Gif from '../../assets/headerGif.gif'
 
 const Header= ({descr, onClickButton }) => {
-
+  
     const handle = () => {
         onClickButton && onClickButton()
     }
