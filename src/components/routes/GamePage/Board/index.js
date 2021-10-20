@@ -37,6 +37,20 @@ import { counterWin, returnBoard } from './utils';
         possession: "blue",
       }));
     });
+
+    const aiMove = (game) => {
+      if (game.move !== null) {
+        setTimeout(() => {
+          setPlayerTwo(() => game.hands.p2.pokes.map((item) => item.poke));
+          setServerBoard(game.board);
+          setBoard(returnBoard(game.board));
+          setSteps((prevState) => {
+            const count = prevState + 1;
+            return count;
+          });
+        }, 1500);
+      }
+    };
   
     
   
@@ -56,31 +70,18 @@ import { counterWin, returnBoard } from './utils';
           }))
         );
       };
-  
       fetchData();
       // eslint-disable-next-line
     }, []);
   
-    const aiMove = (game) => {
-      if (game.move !== null) {
-        setTimeout(() => {
-          setPlayerTwo(() => game.hands.p2.pokes.map((item) => item.poke));
-          setServerBoard(game.board);
-          setBoard(returnBoard(game.board));
-          setSteps((prevState) => {
-            const count = prevState + 1;
-            return count;
-          });
-        }, 1500);
-      }
-    };
+    
   
     useEffect(() => {
       const FirstTurnAI = async () => {
         if ( playerTwo.length < 5) {
           return;
         }
-        if (Math.floor(Math.random() * 100) % 2 === 0 && steps === 0) {
+        if((Math.floor(Math.random() * 2) + 1) % 2 === 0 && steps === 0) {
           setFirstTurn(2);
           const params = {
             currentPlayer: "p2",
@@ -92,16 +93,19 @@ import { counterWin, returnBoard } from './utils';
             board: serverBoard,
           };
           const game = await request.game(params);
-  
+
           aiMove(game);
         } else {
           setFirstTurn(1);
         }
       }
-      FirstTurnAI()
+      
+      setTimeout(() => {
+        FirstTurnAI();
+      }, 1500);
       // eslint-disable-next-line
     }, [playerTwo]);
-  
+
     const handleBoardPlate = async (position) => {
       if (typeof chooseCard === "object") {
         const params = {
@@ -123,19 +127,17 @@ import { counterWin, returnBoard } from './utils';
           setChooseCard("");
         }
         const game = await request.game(params);
-  
         setBoard((prevState) =>
-          prevState.map((item) => {
-            if (item.position === position) {
-              return {
-                ...item,
-                card: chooseCard,
-              };
-            }
-            return item;
-          })
-        );
-  
+        prevState.map((item) => {
+          if (item.position === position) {
+            return {
+              ...item,
+              card: chooseCard,
+            };
+          }
+          return item;
+        })
+      );
         setBoard(returnBoard(game.oldBoard));
         setSteps((prevState) => {
           const count = prevState + 1;
@@ -148,7 +150,6 @@ import { counterWin, returnBoard } from './utils';
     useEffect(() => {
       if (steps === 9) {
         const [countOne, countTwo] = counterWin(board, playerOne, playerTwo);
-  
         if (countOne > countTwo) {
           dispatch(setWinner("wins"));
         } else if (countOne < countTwo) {
@@ -157,15 +158,16 @@ import { counterWin, returnBoard } from './utils';
           dispatch(setWinner("draw"));
         }
       }
-      
-    }, [board, dispatch, playerOne, playerTwo, steps]);
+      // eslint-disable-next-line
+    }, [steps]);
+   
+    // 
     return (
       <div className={s.root}>
-        <div className={cn(s.playerOne)}>
+        <div className={cn(s.playerOne, {[s.turn] : firstTurn === 2 && steps === 0} )}> 
           <PlayerBoard
             player={1}
             cards={playerOne}
-            
             onClickCard={(card) => setChooseCard(card)}
           />
         </div>
@@ -176,7 +178,7 @@ import { counterWin, returnBoard } from './utils';
               className={s.boardPlate}
               onClick={() => !item.card && handleBoardPlate(item.position)}
             >
-            {steps === 0 ? <ArrowChoice side={firstTurn} /> : <></> }
+            {steps < 1 ? <ArrowChoice side={firstTurn} /> : <></> }
               {winner !== null ? <Result type={winner} /> : <></>}
               {winner !== null ? (
                 setTimeout(() => history.replace("/game/finish"), 3500)
@@ -184,12 +186,12 @@ import { counterWin, returnBoard } from './utils';
                 <></>
               )}
   
-              {item.card && <PokemonCard {...item.card} active minimize />}
+              {item.card && <PokemonCard {...item.card} active  minimize />}
             </div>
           ))}
         </div>
         <div className={cn(s.playerTwo, s.turn)}>
-          <PlayerBoard  player={2} cards={playerTwo} />
+          <PlayerBoard player={2} cards={playerTwo} />
         </div>
       </div>
     );

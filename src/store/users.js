@@ -13,6 +13,7 @@ export const slice = createSlice({
             isLoading: true,
         }),
         updateUser: (state, action) => ({
+            ...state,
             isLoading: false,
             data: action.payload
         }),
@@ -51,19 +52,16 @@ export const getUserUpdateAsync = () => async (dispatch) => {
             localStorage.removeItem('idToken');
             dispatch(removeUser());
         } else {
-            dispatch(updateUser(response.users[0]))
+            dispatch(updateUser(response.users[0]));
         }
     } else {
-        dispatch(removeUser())
+        dispatch(removeUser());
     }
-    
 }
-
 
 export const getUserAsync = () => (dispatch) => {
     dispatch(fetchUser());
-    dispatch(getUserUpdateAsync())
-
+    dispatch(getUserUpdateAsync());
 }
 
 export default slice.reducer;

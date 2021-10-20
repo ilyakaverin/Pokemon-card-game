@@ -2,12 +2,12 @@ import PokemonCard from '../../../../../PokemonCards';
 import {useState} from 'react';
 import style from './style.module.css';
 import cn from 'classnames';
+import { nanoid } from 'nanoid';
 
 
 const PlayerBoard = ({ player, cards, onClickCard}) => {
 
     const [isSelected, setSelected] = useState(null);
-
 
     return (
         
@@ -24,21 +24,18 @@ const PlayerBoard = ({ player, cards, onClickCard}) => {
                    
                             })
                             }
-                            
                 
                 }
                 >             
                 <PokemonCard
-                key={card.key}
-               objectId={card.key}
+                key={nanoid()}
                name={card.name}
                type={card.type}
                img={card.img}
                values={card.values}
                id={card.id}
+               active={card.active}
                minimize                      
-               active
-               isSelected={card.selected} 
                /> 
                </div>
                ))

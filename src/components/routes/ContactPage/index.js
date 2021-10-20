@@ -2,7 +2,7 @@
 
 const ContactPage = () => {
     return (
-        <h1> see ya!</h1>
+        <h1> Telegram: seeuspacecowboyy</h1>
     )
 }
 export default ContactPage;

@@ -25,7 +25,9 @@
     margin-top: -20px;
     margin-bottom: 20px;
 }
-
+.pokemonCard.active {
+    margin-left: -20px;
+}
 .cardFront,
 .cardBack {
     width: 100%;

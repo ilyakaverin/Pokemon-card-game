@@ -8,12 +8,13 @@ import { pokemons2Data, setPlayerToRedux } from '../../../../store/pokemons2';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectUser } from '../../../../store/users';
 import { userStats, getStatsAsync } from '../../../../store/stats';
+import { updateStats, addWinPokemon } from '../Board/utils';
 
 
 
 const FinishPage = () => {
+
     const history = useHistory();
-    
     const [winCard, setWinCard] = useState({});
     const winner = useSelector(setWin);
     const stats = useSelector(userStats)
@@ -25,15 +26,9 @@ const FinishPage = () => {
     const value = stats[key];
     const [statistic, setStatistic] = useState(value);
 
-    const updateStats = async () => {
-
-        const requestOptions = {
-            method: 'PUT',
-            body: JSON.stringify(statistic)
-        }
-        await fetch(`https://pokemon-game-ca189-default-rtdb.asia-southeast1.firebasedatabase.app/${user.localId}/stats/${key}.json?auth=${localStorage.getItem('idToken')}`, requestOptions)
-    
-    };
+    if(Object.values(player1).length === 0) {
+        history.replace('/')
+      }
 
     useEffect(() => { 
         setStatistic(prevState => {
@@ -43,47 +38,34 @@ const FinishPage = () => {
         })
         // eslint-disable-next-line
     },[])
-   
-
-
-    const addWinPokemon =  async () => {
-
-        const requestOptions = {
-            method: 'POST',
-            body: JSON.stringify(winCard),
-        }
-         await fetch(`https://pokemon-game-ca189-default-rtdb.asia-southeast1.firebasedatabase.app/${user.localId}/pokemons.json?auth=${localStorage.getItem('idToken')}`,requestOptions);
-    }
-
+    
     const handle= () => {
         if(winner === 'wins') {
-            addWinPokemon();
+            addWinPokemon(winCard, user);
         }
-        updateStats()
-        
+        updateStats(statistic, user, key)
         dispatch(getPokemonsAsync());
         history.push('/game');
         dispatch(getStatsAsync());
-        dispatch(setClean({}))
-        dispatch(setPlayerToRedux({}))
+        dispatch(setClean({}));
+        dispatch(setPlayerToRedux({}));
         
     }
     const pick = (id) => {
         // eslint-disable-next-line array-callback-return
         Object.values(player2).map((item) => {
             if(item.id === id) {
-                setWinCard(item)
+                setWinCard(item);
             }
         })
      
   }
   
-    if(Object.values(player1).length === 0) {
-        history.replace('/')
-      }
+    
       
     return (
         <>
+         
         <div className ={style.flex}>
          {
             Object.values(player1).map((card, index) =>  (  
@@ -98,35 +80,39 @@ const FinishPage = () => {
                values={card.values}
                id={card.id}                     
                active
-               
-               /> 
-               
-               ))
-                            }
-</div>
-        
-        <button className={style.wrapButton} onClick={handle} disabled={Object.keys(winCard).length === 0 && winner === 'player1'}>END GAME</button>
-       
-        <div className ={style.flex}>
-
-        {
-            Object.values(player2).map((card, index) =>  (  
-                <PokemonCard
-                className={cn(style.card, {[style.pick] : winCard.id === card.id  })}
-                key={index}
-               objectId={card.key}
-               name={card.name}
-               type={card.type}
-               img={card.img}
-               values={card.values}
-               id={card.id}                     
-               active
-               StateOfPokemon={() => pick(card.id)}
                /> 
                ))
                             }
 
         </div>
+        <div className={style.info}>
+            <button 
+            className={style.startButton} 
+            onClick={handle} disabled={Object.keys(winCard).length === 0 && winner === 'wins'}>END GAME</button>
+            <span> Winner is {winner === 'wins' ?  'player1' : winner === 'lose' ? 'player 2' : 'draw'}</span>
+            {winner === 'wins' ? <span>Choose enemy pokemon, you can add him to you library</span> : <></>}
+        </div>
+        
+
+        <div className ={style.flex}>
+                          
+            {
+                Object.values(player2).map((card, index) =>  (  
+                    <PokemonCard
+                        className={cn(style.card, {[style.pick] : winCard.id === card.id  })}
+                        key={index}
+                        objectId={card.key}
+                        name={card.name}
+                        type={card.type}
+                        img={card.img}
+                        values={card.values}
+                        id={card.id}                     
+                        active
+                        StateOfPokemon={() => pick(card.id)}
+                    /> ))
+            }
+        </div>
+        
         </>
     )
 }

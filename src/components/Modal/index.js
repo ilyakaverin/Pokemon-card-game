@@ -1,8 +1,9 @@
 import {useRef, useEffect} from 'react'
 import cn from 'classnames'
-import s from './style.module.css'
+import s from './style.module.css';
+import img from '../../assets/loader.jpeg';
 
-const Modal = ({isOpen, title, children, onCloseModal}) => {
+const Modal = ({isOpen, title, children, onCloseModal, isCreating}) => {
 
     const ModalRef = useRef()
     
@@ -20,18 +21,15 @@ const Modal = ({isOpen, title, children, onCloseModal}) => {
         }
     }
     return (
-        <div className={cn(s.root, {
-            [s.open] : isOpen
-        })}
-        onClick={handleClickRoot}
-        >
-    <div ref={ModalRef} className={s.modal}>
+
+        <div className={cn(s.root, { [s.open] : isOpen })} onClick={handleClickRoot} > 
+        <div ref={ModalRef} className={s.modal}>
         <div className={s.head}>
-						{title}
+			{title}
             <span onClick={handleCloseModal} className={s.btnClose}></span>
-        </div>
+        </div> 
         <div className={s.content}>
-            {children}
+        {isCreating ? <><img className={s.load} src={img} alt='load' /><span>Creating user</span></> : children }
         </div>
     </div>
 </div>

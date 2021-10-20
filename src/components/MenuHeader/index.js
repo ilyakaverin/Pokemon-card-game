@@ -8,10 +8,13 @@ import { useDispatch } from 'react-redux';
 import { getUserUpdateAsync } from '../../store/users';
 
 
+
+
 const MenuHeader = ({bgActive}) => {
     const [isActive, setActive] = useState(null);
     const [isOpenModal, setModalState] = useState(false)
     const dispatch = useDispatch();
+    const [creating, setCreating] = useState(false);
 
     const handle = () => {
         setActive(prevState => !prevState)
@@ -32,7 +35,10 @@ const MenuHeader = ({bgActive}) => {
             case true:
                 return await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCvP_1qO7amCQplRNx1M2kgZPk37Wo99LA',requestOptions).then(res => res.json());
             case false:
-                return await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCvP_1qO7amCQplRNx1M2kgZPk37Wo99LA', requestOptions).then(res => res.json())
+                setCreating(true)
+                return await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCvP_1qO7amCQplRNx1M2kgZPk37Wo99LA', requestOptions)
+                .then(res => res.json())
+
             default: 
                 return 'error'
 
@@ -67,20 +73,22 @@ const MenuHeader = ({bgActive}) => {
                 localStorage.setItem('idToken', response.idToken);
                 NotificationManager.success('DONE', 'priwel k uspehu');
                 dispatch(getUserUpdateAsync());
-                handleClickLogin()
+                handleClickLogin();
+                setCreating(false);
             }
      
     }
 
     return (
         <>
-        <Menu isOpen={isActive} setState={setActive} />
+        <Menu  isOpen={isActive} setState={setActive} />
         <NavBar 
             setState={handle} 
             isOpen={isActive} 
             bgActive={bgActive}
             onClickLogin={handleClickLogin} />
-            <Modal 
+                <Modal
+                    isCreating={creating} 
                     title="Login" 
                     onCloseModal={handleClickLogin}
                     isOpen={isOpenModal}

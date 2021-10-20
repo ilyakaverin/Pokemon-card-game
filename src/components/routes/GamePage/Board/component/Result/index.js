@@ -9,7 +9,7 @@ const Result = ({ type }) => {
 
    useEffect(() => {
        switch (type) {
-           case 'win':
+           case 'wins':
                setUrl(YouWin);
                break;
            case 'lose':

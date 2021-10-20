@@ -32,15 +32,15 @@ const LoginForm = ({onSubmit, isResetField = false}) => {
         <Input
         value={email} 
         type='text' 
-        name='email'
-        label='email' 
+        name='Email'
+        label='Email' 
         onChange={(event) => setEmail(event.target.value)} />
 
         <Input
             value={password} 
             type='password' 
-            name='password'
-            label='password' 
+            name='Password'
+            label='Password' 
             onChange={(event) => setPassword(event.target.value)}
         />
         <div className={style.buttons}>

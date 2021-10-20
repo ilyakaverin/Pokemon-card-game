@@ -4,14 +4,18 @@
     position: fixed;
     top: 0;
     left: 0;
-   
     visibility: hidden;
     opacity: 0;
     transition: all 0.25s ease-in-out;
     z-index: 100000;
     
 }
-
+.load {
+    width: 155px;
+    margin-right: 15px;
+    align-self: center;
+    
+  }
 .root.open {
     opacity: 1;
     visibility: visible;
@@ -19,7 +23,7 @@
 
 .modal {
     width: 600px;
-    min-height: 110px;
+    min-height: 290px;
     display: block;
     margin: 50% 0 0 -300px;
     position: relative;
@@ -84,4 +88,15 @@
 
 .content {
     padding: 12px 24px;
+    display: flex;
+    flex-direction: column;
+    
+
+    
+}
+
+.content span {
+    font-size: 18px;
+    align-self: center;
+    
 }
