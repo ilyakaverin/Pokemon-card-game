@@ -39,7 +39,22 @@ import { counterWin, returnBoard } from './utils';
     });
 
     const aiMove = (game) => {
+
       if (game.move !== null) {
+        const idAi = game.move.poke.id;
+        
+        setTimeout(() => {
+          setPlayerTwo(prevState => prevState.map(item => {
+            if(item.id === idAi) {
+              return {
+                ...item,
+                active:true
+              }
+            }
+            return item
+          }))
+          
+        }, 1000);
         setTimeout(() => {
           setPlayerTwo(() => game.hands.p2.pokes.map((item) => item.poke));
           setServerBoard(game.board);
