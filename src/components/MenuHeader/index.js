@@ -50,6 +50,7 @@ const MenuHeader = ({bgActive}) => {
         const response = await authEvent(props);
             if(response.hasOwnProperty('error')) {
                 NotificationManager.error(response.error.message, 'wrong');
+                setCreating(false);
             } else {
                 if(props.signIn === false) {
                     const data = {
