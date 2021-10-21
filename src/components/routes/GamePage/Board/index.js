@@ -59,10 +59,6 @@ import { counterWin, returnBoard } from './utils';
           setPlayerTwo(() => game.hands.p2.pokes.map((item) => item.poke));
           setServerBoard(game.board);
           setBoard(returnBoard(game.board));
-          setSteps((prevState) => {
-            const count = prevState + 1;
-            return count;
-          });
         }, 1500);
       }
     };
@@ -110,6 +106,10 @@ import { counterWin, returnBoard } from './utils';
           const game = await request.game(params);
 
           aiMove(game);
+          setSteps((prevState) => {
+            const count = prevState + 1;
+            return count;
+          });
         } else {
           setFirstTurn(1);
         }
@@ -158,7 +158,32 @@ import { counterWin, returnBoard } from './utils';
           const count = prevState + 1;
           return count;
         });
-        aiMove(game);
+        
+        if (game.move !== null) {
+          const idAi = game.move.poke.id;
+          
+          setTimeout(() => {
+            setPlayerTwo(prevState => prevState.map(item => {
+              if(item.id === idAi) {
+                return {
+                  ...item,
+                  active:true
+                }
+              }
+              return item
+            }))
+            
+          }, 1000);
+          setTimeout(() => {
+            setPlayerTwo(() => game.hands.p2.pokes.map((item) => item.poke));
+            setServerBoard(game.board);
+            setBoard(returnBoard(game.board));
+            setSteps((prevState) => {
+              const count = prevState + 1;
+              return count;
+            });
+          }, 1500);
+        }
       }
     };
 
