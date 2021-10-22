@@ -11,7 +11,7 @@ const StartPage = () => {
   const selectedRedux = useSelector(SelectedPokemon);
   const pokemonsRedux = useSelector(selectPokemonsData);
   const dispatch = useDispatch();
-  const isLoading = useSelector(selectPokemonsLoading)
+  const isLoading = useSelector(selectPokemonsLoading);
   
 
 
@@ -41,7 +41,7 @@ const StartPage = () => {
   const handleStart = () => {
 history.push('/game/board')
   }
-  if(isLoading) {
+  if(isLoading || pokemonsRedux.hasOwnProperty('error')) {
     return <div className={s.pokeball}><span></span></div>
   }
   
@@ -53,6 +53,7 @@ history.push('/game/board')
      onClick={handleStart}
      disabled={Object.keys(selectedRedux).length < 5}> START GAME</button>
      <p>Choose 5 pokemons and click button</p>
+     <span> You picked {Object.keys(selectedRedux).length} cards</span>
     </div>
       
       <div className={s.flex}>

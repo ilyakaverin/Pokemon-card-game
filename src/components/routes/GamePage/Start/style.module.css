@@ -7,6 +7,9 @@
     text-align: center;
     padding:2rem;
 }
+.wrapButton span {
+  font-size: 16px;
+}
 .wrapButton p {
   margin-top: 15px;
   font-size: 16px;

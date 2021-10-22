@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectUser } from '../../../../store/users';
 import { userStats, getStatsAsync } from '../../../../store/stats';
 import { updateStats, addWinPokemon } from '../Board/utils';
+import {nanoid} from 'nanoid';
 
 
 
@@ -68,11 +69,11 @@ const FinishPage = () => {
          
         <div className ={style.flex}>
          {
-            Object.values(player1).map((card, index) =>  (  
+            Object.values(player1).map((card) =>  (  
                 
                 <PokemonCard
                 className={style.card}
-                key={index}
+                key={nanoid()}
                objectId={card.key}
                name={card.name}
                type={card.type}
@@ -97,10 +98,10 @@ const FinishPage = () => {
         <div className ={style.flex}>
                           
             {
-                Object.values(player2).map((card, index) =>  (  
+                Object.values(player2).map((card) =>  (  
                     <PokemonCard
                         className={cn(style.card, {[style.pick] : winCard.id === card.id  })}
-                        key={index}
+                        key={nanoid()}
                         objectId={card.key}
                         name={card.name}
                         type={card.type}

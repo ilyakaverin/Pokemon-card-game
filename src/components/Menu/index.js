@@ -1,6 +1,9 @@
 import style from './style.module.css';
 import {Link} from 'react-router-dom';
 import cn from 'classnames';
+import {useDispatch} from 'react-redux';
+import { setClean } from '../../store/pokemons';
+
 
 const MENU = [
   {
@@ -9,20 +12,22 @@ const MENU = [
   },
   {
     title:'GAME',
-    to:'game'
+    to:'/game'
   },
   {
     title:'ABOUT',
-    to:'about'
+    to:'/about'
   },
   {
     title:'CONTACT',
-    to:'contact'
+    to:'/contact'
   }
 
 ]
 
 const Menu = ({isOpen, setState}) => {
+
+  const dispatch = useDispatch();
 
     return (
 
@@ -35,7 +40,10 @@ const Menu = ({isOpen, setState}) => {
       {
         MENU.map(({title, to }, index) => (
           <li key={index}>
-            <Link onClick={() => setState(false)} to={to}>
+            <Link onClick={() => {
+              dispatch(setClean({}))
+              setState(false)
+              }} to={to}>
               {title}
             </Link>
           </li>
