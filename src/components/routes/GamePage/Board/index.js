@@ -141,7 +141,6 @@ import { counterWin, returnBoard } from './utils';
           );
           setChooseCard("");
         }
-        const game = await request.game(params);
         setBoard((prevState) =>
         prevState.map((item) => {
           if (item.position === position) {
@@ -153,6 +152,8 @@ import { counterWin, returnBoard } from './utils';
           return item;
         })
       );
+      
+        const game = await request.game(params);
         setBoard(returnBoard(game.oldBoard));
         setSteps((prevState) => {
           const count = prevState + 1;
