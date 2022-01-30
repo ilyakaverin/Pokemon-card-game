@@ -9,6 +9,8 @@ Stack: React, Redux Toolkit, React router, Firebase
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-This app deployed on heroku:
-https://ikaverinapp.herokuapp.com/
+This app deployed on vercel:
+[Demo](https://pokemonsbyilya.vercel.app).
+
+
 
