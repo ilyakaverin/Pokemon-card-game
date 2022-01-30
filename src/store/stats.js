@@ -35,8 +35,8 @@ export const wonCards = state => state.statistics.cardsIWon;
 export const getStatsAsync = () => async (dispatch, getState) => {
     dispatch(fetchStats());
     const localId = selectLocalId(getState());
-    const data = await fetch(`https://pokemon-game-ca189-default-rtdb.asia-southeast1.firebasedatabase.app/${localId}/stats.json?auth=${localStorage.getItem('idToken')}`).then(res => res.json());
-    const poke = await fetch(`https://pokemon-game-ca189-default-rtdb.asia-southeast1.firebasedatabase.app/${localId}/pokemons.json?auth=${localStorage.getItem('idToken')}`).then(res => res.json());
+    const data = await fetch(`https://pokemons-434a6-default-rtdb.europe-west1.firebasedatabase.app/${localId}/stats.json?auth=${localStorage.getItem('idToken')}`).then(res => res.json());
+    const poke = await fetch(`https://pokemons-434a6-default-rtdb.europe-west1.firebasedatabase.app/${localId}/pokemons.json?auth=${localStorage.getItem('idToken')}`).then(res => res.json());
     
     const wonCards = Object.keys(poke)
     .slice(5)

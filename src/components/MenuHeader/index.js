@@ -33,10 +33,10 @@ const MenuHeader = ({bgActive}) => {
         }
         switch(signIn) {
             case true:
-                return await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCvP_1qO7amCQplRNx1M2kgZPk37Wo99LA',requestOptions).then(res => res.json());
+                return await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBkbGwRNbUvsFTPecLbRzVhUW0O-0HE0Hw',requestOptions).then(res => res.json());
             case false:
                 setCreating(true)
-                return await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCvP_1qO7amCQplRNx1M2kgZPk37Wo99LA', requestOptions)
+                return await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBkbGwRNbUvsFTPecLbRzVhUW0O-0HE0Hw', requestOptions)
                 .then(res => res.json())
 
             default: 
@@ -58,14 +58,14 @@ const MenuHeader = ({bgActive}) => {
                         draw: 0,
                         lose: 0
                     }
-                    await fetch(`https://pokemon-game-ca189-default-rtdb.asia-southeast1.firebasedatabase.app/${response.localId}/stats.json?auth=${response.idToken}`, {
+                    await fetch(`https://pokemons-434a6-default-rtdb.europe-west1.firebasedatabase.app//${response.localId}/stats.json?auth=${response.idToken}`, {
                         method: 'POST',
                         body: JSON.stringify(data)
                     })
                     const pokemonStart = await fetch('https://reactmarathon-api.herokuapp.com/api/pokemons/starter').then(res => res.json());
                     for(const item of pokemonStart.data) {
 
-                        await fetch(`https://pokemon-game-ca189-default-rtdb.asia-southeast1.firebasedatabase.app/${response.localId}/pokemons.json?auth=${response.idToken}`, {
+                        await fetch(`https://pokemons-434a6-default-rtdb.europe-west1.firebasedatabase.app//${response.localId}/pokemons.json?auth=${response.idToken}`, {
                             method: 'POST',
                             body: JSON.stringify(item)
                         });

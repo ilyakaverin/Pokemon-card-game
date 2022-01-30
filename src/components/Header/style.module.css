@@ -13,7 +13,7 @@
 .root:before {
     content: '';
     position: fixed;
-    background: url(../../assets/headerGif.gif) no-repeat;
+    background: url(../../assets/animation.webp) no-repeat;
     background-attachment: fixed;
     background-size: cover;
     background-color: black;

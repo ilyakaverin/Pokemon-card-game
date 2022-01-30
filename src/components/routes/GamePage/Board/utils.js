@@ -5,7 +5,7 @@ export const updateStats = async (statistic, user, key) => {
       method: 'PUT',
       body: JSON.stringify(statistic)
   }
-  await fetch(`https://pokemon-game-ca189-default-rtdb.asia-southeast1.firebasedatabase.app/${user.localId}/stats/${key}.json?auth=${localStorage.getItem('idToken')}`, requestOptions)
+  await fetch(`https://pokemons-434a6-default-rtdb.europe-west1.firebasedatabase.app/${user.localId}/stats/${key}.json?auth=${localStorage.getItem('idToken')}`, requestOptions)
 
 };
 
@@ -15,7 +15,7 @@ export const addWinPokemon =  async (winCard, user) => {
       method: 'POST',
       body: JSON.stringify(winCard),
   }
-   await fetch(`https://pokemon-game-ca189-default-rtdb.asia-southeast1.firebasedatabase.app/${user.localId}/pokemons.json?auth=${localStorage.getItem('idToken')}`,requestOptions);
+   await fetch(`https://pokemons-434a6-default-rtdb.europe-west1.firebasedatabase.app//${user.localId}/pokemons.json?auth=${localStorage.getItem('idToken')}`,requestOptions);
 }
 
 

@@ -47,7 +47,7 @@ export const getUserUpdateAsync = () => async (dispatch) => {
                 idToken,
             })
         }
-        const response = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyCvP_1qO7amCQplRNx1M2kgZPk37Wo99LA', requestOptions).then(res => res.json())
+        const response = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyBkbGwRNbUvsFTPecLbRzVhUW0O-0HE0Hw', requestOptions).then(res => res.json())
         if(response.hasOwnProperty('error')) {
             localStorage.removeItem('idToken');
             dispatch(removeUser());
