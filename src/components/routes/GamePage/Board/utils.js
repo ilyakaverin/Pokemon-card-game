@@ -17,8 +17,6 @@ export const addWinPokemon =  async (winCard, user) => {
   }
    await fetch(`https://pokemons-434a6-default-rtdb.europe-west1.firebasedatabase.app//${user.localId}/pokemons.json?auth=${localStorage.getItem('idToken')}`,requestOptions);
 }
-
-
 export const counterWin = (board, playerOne, playerTwo) => {
     let playerOneCount = playerOne.length;
     let playerTwoCount = playerTwo.length;
